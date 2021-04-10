@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './components/layouts/Home';
-
+import Projects from './components/layouts/Projects';
+import Navbar from './components/reuseable/Navbar';
 class App extends React.Component{
     render(){
         return (
-            <div>
-                <Home />
+            <div className="App">
+                <Navbar />
+                <Projects />
             </div>
         )
     }

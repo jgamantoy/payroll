@@ -1,0 +1,22 @@
+.Navbar {
+    width: 100%;
+    max-width: 1366px;
+    height: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #000000;
+    &__container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+        font-size: 30px;
+        font-weight: bold;
+        width: 170px;
+        height: 100%;
+        box-sizing: border-box;
+        border-right: 1px solid #000000;
+        border-bottom: 1px solid #000000
+    }
+}

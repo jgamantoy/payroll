@@ -13,7 +13,12 @@ const Projects = () => {
     }
     return (
         <div className="Projects">
-            Projects
+            <div className="Projects__header">
+                <h1>Projects</h1>
+            </div>
+            <div className="Projects__main">
+                main
+            </div>
         </div>
     )
 }

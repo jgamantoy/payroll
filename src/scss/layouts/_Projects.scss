@@ -4,19 +4,24 @@
     align-items: center;;
     flex-direction: column;
     width: 100%;
+    max-width: 1366px;
     height: 100vh;
-    &__main{
-        display: flex;
-        flex-grow: 1;
+    background-color: #FFFFFF;
+    &__header{
         width: 100%;
-        max-width: 1366px;
-        background: blue;
+        height: 128px;
+        background-color: #821400;
+        display: flex;
+        align-items: center;
+        h1{
+            color: #FFFFFF;
+            font-size: 64px;
+            margin-left: 44px;
+        }
+    }
+    &__main{
+        width: 100%;
+        flex-grow: 1;
     }
 }
-.projectCondensed {
-    color: green;
-    background: white;
-    border: 1px solid black;
-    width: 350px;
-    margin-bottom: 5px; 
-}
+

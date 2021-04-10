@@ -4,11 +4,14 @@ const Navbar = () => {
     return (
         <div className="Navbar">
             <div className="Navbar__container">
-                Projects
+                <div className="Navbar__container__tab active">
+                    Projects
+                </div>
+                <div className="Navbar__container__tab">
+                    Team
+                </div>
             </div>
-            <div className="Navbar__container">
-                Members
-            </div>
+
         </div>
     )
 }

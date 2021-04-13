@@ -8,7 +8,40 @@
         width: 100%;
     }
     &__main{
+        @include flexCenter;
         width: 100%;
-        height: 100%
+        height: 100%;
+        &__member{
+            width: 50%;
+            height: 100%;
+            .Member{
+                margin-bottom: 10px;
+            }
+        }
+        &__summary{
+            width: 50%;
+            height: 100%;
+            &__container{
+                width: 288px;
+                height: 245px;
+                border: 2px solid $grey;
+                padding: 5px 10px;
+                h2{
+                    font-size: 48px;
+                    font-weight: 700;
+                }
+                h3{
+                    font-size: 24px;
+                    font-weight: 700;
+                    padding: 5px 0;
+                    border-bottom: 3px solid $red;
+                }
+                p{
+                    font-size: 18px;
+                    font-weight: 700;
+                    margin-top: 12px;
+                }
+            }
+        }
     }
 }

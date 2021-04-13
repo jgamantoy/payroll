@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import ProjectsTab from './components/layouts/ProjectsTab';
 import Project from './components/layouts/Project';
+import CreateProject from './components/layouts/CreateProject';
 import Navbar from './components/reuseable/Navbar';
 class App extends React.Component{
     render(){
@@ -10,7 +11,8 @@ class App extends React.Component{
             <div className="App">
                 <Navbar />
                 {/* <ProjectsTab /> */}
-                <Project />
+                {/* <Project /> */}
+                <CreateProject />
             </div>
         )
     }

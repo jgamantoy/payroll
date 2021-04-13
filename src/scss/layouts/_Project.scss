@@ -6,6 +6,12 @@
     height: calc(100vh - 80px);
     &__header{
         width: 100%;
+        padding: 10px 20px;
+        h1{
+            font-size: 64px;
+            font-weight: 700;
+            border-bottom: 3px solid $red;
+        }
     }
     &__main{
         @include flexCenter;
@@ -14,6 +20,11 @@
         &__member{
             width: 50%;
             height: 100%;
+            padding: 0 100px;
+            h2{
+                font-size: 48px;
+                font-weight: 700px;
+            }
             .Member{
                 margin-bottom: 10px;
             }

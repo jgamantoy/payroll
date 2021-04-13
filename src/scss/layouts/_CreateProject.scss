@@ -1,0 +1,86 @@
+.CreateProject{
+    @include flexMain;
+    width: 100%;
+    max-width: 1366px;
+    background-color: #FFFFFF;
+    height: calc(100vh - 80px);
+    &__header{
+        width: 100%;
+        padding: 10px 20px;
+        h1{
+            font-size: 64px;
+            font-weight: 700;
+            border-bottom: 3px solid $red;
+        }
+    }
+    &__main{
+        @include flexCenter;
+        width: 100%;
+        height: 100%;
+        padding: 50px;
+        &__summary{
+            height: 100%;
+            margin-top: 25px;
+            input{
+                width: 552px;
+                height: 64px;
+                border: none;
+                padding-left: 15px;
+                background-color: #DDDDDD;
+                font-size: 36px;
+                margin-bottom: 20px;
+            }
+            h3{
+                font-size: 32px;
+                font-weight: 700;
+                padding: 5px 0;
+                border-bottom: 3px solid $red;
+            }
+            p{
+                font-size: 24px;
+                font-weight: 700;
+                margin-top: 12px;
+            }
+        }
+        &__member{
+            margin-left: 21px;
+            height: 100%;
+            h2{
+                font-size: 48px;
+                font-weight: 700px;
+            }
+            .Member{
+                margin-bottom: 10px;
+            }
+        }
+        
+        &__add{
+            height: 100%;
+            margin-left: 83px;
+                width: 300px;
+                h2{
+                    font-size: 48px;
+                }
+                &__row{
+                    @include flexCenter;
+                    justify-content: space-between;
+                    margin: 10px 0;
+                    h4{
+                        margin-right: 10px;
+                        font-size: 24px;
+                    }
+                }
+                button{
+                    width: 100%;
+                    height: 60px;
+                    text-align: center;
+                    font-size: 36px;
+                    font-weight: bold;
+                    color: #FFFFFF;
+                    background-color: $red;
+                    border: none;
+                    border-radius: none;
+                } 
+        }
+    }
+}

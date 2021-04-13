@@ -10,7 +10,7 @@ const Project = () => {
             </div>
             <div className="Project__main">
                 <div className="Project__main__member">
-                    <h2>Members</h2>
+                    <h2>Team</h2>
                     {testArray.map(() => {
                         return <Member />
                     })}

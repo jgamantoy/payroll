@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000;
+    background-color: $red;
     &__container{
         display: flex;
         justify-content: flex-end;
@@ -21,8 +21,8 @@
             width: 170px;
             height: 100%;
             box-sizing: border-box;
-            border-right: 1px solid #000000;
-            border-bottom: 1px solid #000000
+            border-right: 1px solid $red;
+            border-bottom: 1px solid $red
         }
         .active {
             background-color: #ffffff;

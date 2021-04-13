@@ -1,10 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-@import './layouts/Projects';
+@import './Mixins';
+
+@import './Variables';
+
+@import './layouts/ProjectsTab';
+@import './layouts/Project';
+
 @import './reuseable/Navbar';
+@import './reuseable/ProjectCondensed';
+
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
 .App{

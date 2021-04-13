@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Projects from './components/layouts/Projects';
+
+import ProjectsTab from './components/layouts/ProjectsTab';
+import Project from './components/layouts/Project';
 import Navbar from './components/reuseable/Navbar';
 class App extends React.Component{
     render(){
         return (
             <div className="App">
                 <Navbar />
-                <Projects />
+                {/* <ProjectsTab /> */}
+                <Project />
             </div>
         )
     }

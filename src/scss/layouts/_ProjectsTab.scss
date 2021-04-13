@@ -1,0 +1,79 @@
+.ProjectsTab{
+    @include flexMain;
+    width: 100%;
+    max-width: 1366px;
+    background-color: #FFFFFF;
+    &__main{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        position: relative;
+        padding: 20px 0;
+        width: 100%;
+        height: calc(100vh - 80px);
+        &__summary{
+            width: 50%;
+            height: 100%;
+            h1{
+                font-size: 64px;
+                font-weight: bold;
+                margin-bottom: 11px;
+            }
+            h4{
+                font-size: 24px;
+                color: $red;
+                margin-left: 15px;
+                margin-bottom: 34px;
+            }
+            p{
+                font-size: 20px;
+                margin-left: 15px;
+            }
+            select{
+                margin-left: 15px;
+                height: 35px;
+                width: 150px;
+                border: none;
+                background-color: $grey;
+                margin-bottom: 10px;
+                option{
+                    background-color: #e9e9e9;
+                }
+            }
+            &__check{
+                margin-left: 15px;
+                label{
+                    margin-left: 10px;
+                }
+            }
+        }
+        &__list{
+            padding-left: 200px;
+            width: 50%;
+            height: 100%;
+            h1{
+                font-size: 64px;
+                font-weight: bold;
+                margin-bottoM: 10px;
+            }
+            .ProjectCondensed{
+                margin-bottom: 20px;
+            }
+            &__check{
+                margin-bottom: 5px;
+            }
+        }
+        &__plus{
+            position: absolute;
+            bottom: 50px;
+            right: 100px;
+            z-index: 99;
+            img{
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+
+}
+

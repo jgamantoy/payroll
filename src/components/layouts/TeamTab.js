@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AddPersonelModal from './AddPersonelModal'
 const TeamTab = () => {
+    const [isOpen, setIsOpen] = useState(false)
     return (
         <div className="TeamTab">
             <div className="TeamTab__list">
                 <h2>Personel</h2>
-                <input type="text" placeholder="search for name"></input>
                 <div className="TeamTab__list__container">
-                    {[1,2,3].map(()=> {
-                        return <p>Person Name</p>
-                    })}
+                    <h4>N people</h4>
+                    <input type="text" placeholder="search for name"></input>
+                    <div className="TeamTab__list__container__names">
+                    <ul>
+                        {[1,2,3].map(()=> {
+                            return <li onClick={()=> setIsOpen(true)}>Person name</li>
+                        })}
+                    </ul>
+                    </div>
                 </div>
-                <AddPersonelModal />
             </div>
             <div className="TeamTab__desc">
                 <div class="TeamTab__desc__container">
@@ -22,7 +27,7 @@ const TeamTab = () => {
                     <h4>Contact no.: </h4>
                     <h4>Address: </h4>
                 </div>
-
+                <AddPersonelModal show={isOpen} setIsOpen={(a) => setIsOpen(a)}/>
             </div>
         </div>
     )

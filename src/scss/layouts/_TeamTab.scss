@@ -5,10 +5,13 @@
     height: $mainHeight;
     max-width: 1366px;
     background-color: #FFFFFF;
+    padding: 0 50px;
+    position: relative;
     &__list{
         padding: 50px;
         h2{
-            font-size: 48px;
+            font-size: 64px;
+            font-weight: bold;
         }
         width: 50%;
         height: 100%;
@@ -46,6 +49,16 @@
                 font-size: 18px;
                 margin-bottom: 5px;
             }
+        }
+    }
+    &__plus{
+        position: absolute;
+        bottom: 50px;
+        right: 100px;
+        z-index: 99;
+        img{
+            width: 50px;
+            height: 50px;
         }
     }
 }

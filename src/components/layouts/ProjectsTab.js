@@ -2,9 +2,11 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ProjectCondensed from '../reuseable/ProjectCondensed';
+import { useHistory } from 'react-router-dom';
 
 const ProjectsTab = () => {
   const testArray = [1,2,3];
+  const history = useHistory();
   return (
     <div className="ProjectsTab">
       <div className="ProjectsTab__main">
@@ -35,6 +37,7 @@ const ProjectsTab = () => {
           <img
           src="/images/red_plus.png"
           alt="plus"
+          onClick={()=> history.push('/create_project')}
           />
         </div>
       </div>

@@ -12,7 +12,7 @@ const TeamTab = () => {
                     <div className="TeamTab__list__container__names">
                     <ul>
                         {[1,2,3].map(()=> {
-                            return <li onClick={()=> setIsOpen(true)}>Person name</li>
+                            return <li >Person name</li>
                         })}
                     </ul>
                     </div>
@@ -28,6 +28,13 @@ const TeamTab = () => {
                     <h4>Address: </h4>
                 </div>
                 <AddPersonelModal show={isOpen} setIsOpen={(a) => setIsOpen(a)}/>
+            </div>
+            <div className="TeamTab__plus">
+                <img
+                src="/images/red_plus.png"
+                alt="plus"
+                onClick={()=> setIsOpen(true)}
+                />
             </div>
         </div>
     )

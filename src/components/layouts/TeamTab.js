@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import AddPersonelModal from './AddPersonelModal'
 const TeamTab = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const [teamMembers, setTeamMembers] = useState([])
+
     return (
         <div className="TeamTab">
             <div className="TeamTab__list">
@@ -11,8 +13,8 @@ const TeamTab = () => {
                     <input type="text" placeholder="search for name"></input>
                     <div className="TeamTab__list__container__names">
                     <ul>
-                        {[1,2,3].map(()=> {
-                            return <li >Person name</li>
+                        {teamMembers.map((tm)=> {
+                            return <li >{tm.name}</li>
                         })}
                     </ul>
                     </div>
@@ -27,7 +29,7 @@ const TeamTab = () => {
                     <h4>Contact no.: </h4>
                     <h4>Address: </h4>
                 </div>
-                <AddPersonelModal show={isOpen} setIsOpen={(a) => setIsOpen(a)}/>
+                <AddPersonelModal show={isOpen} setIsOpen={(a) => setIsOpen(a)} teamMembers={teamMembers} setTeamMembers={(a) => setTeamMembers(a)} />
             </div>
             <div className="TeamTab__plus">
                 <img

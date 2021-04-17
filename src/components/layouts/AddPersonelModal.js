@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -7,22 +8,16 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers}) => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [address, setAddress] = useState('')
     const handleSubmit = () => {
-        let newList = [...teamMembers, {
-            name,
-            phone_number: phoneNumber,
-            address,
-        }]
-        console.log(newList)
-        // newList.push({
-        //     name,
-        //     phone_number: phoneNumber,
-        //     address,
-        // })
-        setTeamMembers(newList);
-        setName('');
-        setPhoneNumber('');
-        setAddress('');
-        setIsOpen(false);
+        console.log(':(')
+        axios.post('http://localhost:3001/api/members', { name: name, contact: phoneNumber, address: address}).then(()=> {
+            console.log('item saved');
+            setName('');
+            setPhoneNumber('');
+            setAddress('');
+            setIsOpen(false);
+        }).catch(()=> {
+            console.log('something went wrong')
+        })
     }
     return (
         <Modal

@@ -9,12 +9,6 @@ const ProjectsTab = () => {
   const [testArray, setTestArray] = useState([])
   const history = useHistory();
 
-  useEffect(()=> {
-    axios.get('http://localhost:3001/api/test').then((res)=>{
-      setTestArray(res.data)
-      console.log(res.data)
-    })
-  }, [])
   return (
     <div className="ProjectsTab">
       <div className="ProjectsTab__main">

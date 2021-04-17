@@ -1,12 +1,20 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProjectCondensed from '../reuseable/ProjectCondensed';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const ProjectsTab = () => {
-  const testArray = [1,2,3];
+  const [testArray, setTestArray] = useState([])
   const history = useHistory();
+
+  useEffect(()=> {
+    axios.get('http://localhost:3001/api/test').then((res)=>{
+      setTestArray(res.data)
+      console.log(res.data)
+    })
+  }, [])
   return (
     <div className="ProjectsTab">
       <div className="ProjectsTab__main">

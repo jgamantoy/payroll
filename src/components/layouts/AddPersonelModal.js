@@ -7,13 +7,17 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers}) => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [address, setAddress] = useState('')
     const handleSubmit = () => {
-        let newList = teamMembers.map((data)=> data)
-        console.log(newList)
-        newList.push({
+        let newList = [...teamMembers, {
             name,
             phone_number: phoneNumber,
             address,
-        })
+        }]
+        console.log(newList)
+        // newList.push({
+        //     name,
+        //     phone_number: phoneNumber,
+        //     address,
+        // })
         setTeamMembers(newList);
         setName('');
         setPhoneNumber('');

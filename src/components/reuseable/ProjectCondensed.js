@@ -1,8 +1,13 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 const ProjectCondensed = () => {
+  const history = useHistory()
   return (
-  <div className="ProjectCondensed">
+  <div 
+    className="ProjectCondensed"
+    onClick={()=> history.push('/project/projecttitle')}
+    >
     <div className="ProjectCondensed__main">
       <div className="ProjectCondensed__main__upper">
         <h2>Project Title</h2>
@@ -16,7 +21,6 @@ const ProjectCondensed = () => {
         </div>
       </div>
     </div>
-    <div className="ProjectCondensed__footer" />
   </div>
 );
 }

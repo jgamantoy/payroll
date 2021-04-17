@@ -3,9 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
     const history = useHistory();
-    const location = useLocation()
-    // console.log(history)
-    console.log(location)
+    const location = useLocation();
     return (
         <div className="Navbar">
             <div className="Navbar__container">

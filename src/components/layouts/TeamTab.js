@@ -3,7 +3,7 @@ import AddPersonelModal from './AddPersonelModal'
 const TeamTab = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [teamMembers, setTeamMembers] = useState([])
-
+    const [activePersonel, setActivePersonel] = useState(null)
     return (
         <div className="TeamTab">
             <div className="TeamTab__list">
@@ -14,7 +14,7 @@ const TeamTab = () => {
                     <div className="TeamTab__list__container__names">
                     <ul>
                         {teamMembers.map((tm)=> {
-                            return <li >{tm.name}</li>
+                            return <li onClick={()=>setActivePersonel(tm)}>{tm.name}</li>
                         })}
                     </ul>
                     </div>
@@ -25,9 +25,9 @@ const TeamTab = () => {
                     <div className="TeamTab__desc__container__image" style={{height: '300px', width: '300px', backgroundColor: '#c4c4c4'}}>
                         image
                     </div>
-                    <h2>Name</h2>
-                    <h4>Contact no.: </h4>
-                    <h4>Address: </h4>
+                    <h2>{activePersonel !== null ? activePersonel.name : 'Name'}</h2>
+                    <h4>Contact no: {activePersonel !== null ? activePersonel.phone_number : ''}</h4>
+                    <h4>Address: {activePersonel !== null ? activePersonel.address : ''}</h4>
                 </div>
                 <AddPersonelModal show={isOpen} setIsOpen={(a) => setIsOpen(a)} teamMembers={teamMembers} setTeamMembers={(a) => setTeamMembers(a)} />
             </div>

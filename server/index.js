@@ -22,12 +22,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.listen(3001, () => {
     console.log('server is up');
 })
-
+app.get('/api/members', (req, res) => {
+    const sqlRetrieve = "SELECT * FROM members";
+    con.query(sqlRetrieve, ( err, result) => {
+        res.send(result)
+    })
+})
 app.post('/api/members', (req, res) => {
     console.log(req)
     const name = req.body.name;
     const contact = req.body.contact;
     const address = req.body.address;
     const sqlInsert = "INSERT INTO members (name,contact,address) VALUES (?,?,?)";
-    con.query(sqlInsert, [name,contact,address], (err,result) => {console.log(err)})
+    con.query(sqlInsert, [name,contact,address], (err, result) => {})
 })

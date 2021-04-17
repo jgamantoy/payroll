@@ -8,16 +8,17 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers}) => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [address, setAddress] = useState('')
     const handleSubmit = () => {
-        console.log(':(')
-        axios.post('http://localhost:3001/api/members', { name: name, contact: phoneNumber, address: address}).then(()=> {
+        const newItem = { name: name, contact: phoneNumber, address: address}
+        axios.post('http://localhost:3001/api/members', newItem).then(()=> {
             console.log('item saved');
-            setName('');
-            setPhoneNumber('');
-            setAddress('');
-            setIsOpen(false);
         }).catch(()=> {
             console.log('something went wrong')
         })
+        setTeamMembers([...teamMembers, newItem])
+        setName('');
+        setPhoneNumber('');
+        setAddress('');
+        setIsOpen(false);
     }
     return (
         <Modal

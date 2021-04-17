@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, usseEffect } from 'react'
 import AddPersonelModal from './AddPersonelModal'
+import axios from 'axios';
 const TeamTab = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [teamMembers, setTeamMembers] = useState([])
     const [activePersonel, setActivePersonel] = useState(null)
+    const reload = () => window.location.reload();
+    useEffect(()=>{
+        axios.get('http://localhost:3001/api/members').then((res) => {
+            setTeamMembers(res.data);
+        })
+    }, [])
     return (
         <div className="TeamTab">
             <div className="TeamTab__list">
@@ -29,7 +36,13 @@ const TeamTab = () => {
                     <h4>Contact no: {activePersonel !== null ? activePersonel.phone_number : ''}</h4>
                     <h4>Address: {activePersonel !== null ? activePersonel.address : ''}</h4>
                 </div>
-                <AddPersonelModal show={isOpen} setIsOpen={(a) => setIsOpen(a)} teamMembers={teamMembers} setTeamMembers={(a) => setTeamMembers(a)} />
+                <AddPersonelModal 
+                    show={isOpen} 
+                    setIsOpen={(a) => setIsOpen(a)} 
+                    teamMembers={teamMembers} 
+                    setTeamMembers={(a) => setTeamMembers(a)} 
+                    reload={reload}
+                />
             </div>
             <div className="TeamTab__plus">
                 <img

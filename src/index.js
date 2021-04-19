@@ -12,6 +12,8 @@ import Project from './components/layouts/Project';
 import CreateProject from './components/layouts/CreateProject';
 import TeamTab from './components/layouts//TeamTab';
 import Navbar from './components/reuseable/Navbar';
+
+import './scss/index.scss'
 class App extends React.Component{
     render(){
         return (

@@ -22,16 +22,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `members` (
   `name` varchar(200) NOT NULL,
   `contact` int(200) NOT NULL,
-  `address` varchar(200) NOT NULL
+  `email` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `members`
---
-
-INSERT INTO `members` (`name`, `contact`, `address`) VALUES
-('Dudze', 89299918, '31 street road'),
-('Jozi', 889, '299888 jjksjuxjw');
 
 -- --------------------------------------------------------
 

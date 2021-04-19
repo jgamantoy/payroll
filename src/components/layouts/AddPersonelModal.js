@@ -29,10 +29,6 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers, reload
             }).catch(()=> {
                 console.log('something went wrong')
             })
-            setTeamMembers([...teamMembers, newItem])
-            setName('');
-            setPhoneNumber('');
-            setEmailAddress('');
             setIsOpen(false);
             reload()
         }

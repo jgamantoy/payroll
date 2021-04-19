@@ -32,7 +32,27 @@ app.post('/api/members', (req, res) => {
     const sqlInsert = "INSERT INTO members (name,contact,email) VALUES (?,?,?)";
     con.query(sqlInsert, [name,contact,email], (err, result) => {})
 })
+app.post('/api/project', (req, res) => {
+    const title = req.body.title;
+    const team = req.body.team;
+    const checkForTable = "SHOW TABLES LIKE ?"
+    con.query(checkForTable, [req.body.title], (err, result) => {
+        if (err){
+            console.log(err)
+        } else {
+            // if (result.length === 0){
+                const createTable = `CREATE TABLE ${title}(id int, name VARCHAR(255), role VARCHAR(255), pay int)`
+                con.query(createTable, (e, r) => {  
+                    team.forEach((mem) => {
+                        const sqlInsert = `INSERT INTO ${title} (id,name,role,pay) VALUES (?,?,?,?)`
+                        con.query(sqlInsert, [mem.id, mem.name, mem.role,  mem.pay])
+                    })
+                })
+            // }
 
+        }
+    })
+})
 // READ------------------------------------------------
 app.get('/api/members', (req, res) => {
     const sqlRetrieve = "SELECT * FROM members";

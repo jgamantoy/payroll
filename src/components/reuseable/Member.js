@@ -1,12 +1,18 @@
 import React from 'react';
 
-const Member = () => {
+const Member = (props) => {
+    const {member, team, setTeam} = props;
+    const handleDelete = () => {
+        const newTeam = team.filter((mem) => mem.entity.id !== member.entity.id)
+        setTeam(newTeam);
+    }
+
     return (
         <div className="Member">
             <div className="Member__details">
-                <h3>Name</h3>
-                <h4>Role</h4>
-                <p>Php 4,000/m</p>
+                <h3>{member.entity.name}</h3>
+                <h4>{member.role}</h4>
+                <p>Php {member.pay}/m</p>
             </div>
             <div className="Member__image">
             </div>
@@ -14,6 +20,7 @@ const Member = () => {
                 <img 
                     src="/images/black_x.png"
                     alt="exit"
+                    onClick={() => handleDelete()}
                 />
             </div>
         </div>

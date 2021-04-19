@@ -44,6 +44,7 @@
         }
         &__member{
             margin-left: 21px;
+            min-width: 300px;
             height: 100%;
             h2{
                 font-size: 48px;
@@ -68,6 +69,9 @@
                     h4{
                         margin-right: 10px;
                         font-size: 24px;
+                    }
+                    #pay, #role{
+                        width: 170px;
                     }
                 }
                 button{

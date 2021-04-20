@@ -33,8 +33,7 @@ app.post('/api/members', (req, res) => {
     con.query(sqlInsert, [name,contact,email], (err, result) => {})
 })
 app.post('/api/project', (req, res) => {
-    const title = req.body.title;
-    const team = req.body.team;
+    const { title, team, start_date, end_date, total_cost, member_count } = req.body
     const checkForTable = "SHOW TABLES LIKE ?"
     con.query(checkForTable, [req.body.title], (err, result) => {
         if (err){
@@ -48,20 +47,26 @@ app.post('/api/project', (req, res) => {
                         const sqlInsert = `INSERT INTO ${title} (id,name,role,pay) VALUES (?,?,?,?)`
                         con.query(sqlInsert, [mem.id, mem.name, mem.role,  mem.pay])
                     })
-                })
             // }
-
+            })
         }
     })
+    const sqlInsert = 'INSERT INTO projects (name,start_date,end_date,total_cost,member_count) VALUE (?,?,?,?,?)'
+    con.query(sqlInsert, [title, start_date, end_date, total_cost, member_count])
 })
 // READ------------------------------------------------
 app.get('/api/members', (req, res) => {
     const sqlRetrieve = "SELECT * FROM members";
     con.query(sqlRetrieve, ( err, result) => {
-        res.send(result)
+        res.send(result);
     })
 })
-
+app.get('/api/projects', (req, res) => {
+    const sqlRetrieve = "SELECT * FROM projects"
+    con.query(sqlRetrieve, ( err, result) => {
+        res.send(result);
+    }) 
+})
 // UPDATE ----------------------------------------------
 app.put('/api/update/:id', (req, res) => {
     const memberId = req.params.id;

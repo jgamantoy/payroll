@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
   } from "react-router-dom";
 
 import ProjectsTab from './components/layouts/ProjectsTab';
@@ -23,8 +22,8 @@ class App extends React.Component{
                     <Switch>
                     <Route exact path="/" component={ProjectsTab} />
                     <Route path="/project" component={Project}/>
-                    <Route path="/create_project" component={CreateProject} />
-                    <Route path="/team" component={TeamTab} />
+                    <Route exact path="/create_project" component={CreateProject} />
+                    <Route exact path="/team" component={TeamTab} />
                     </Switch>
                 </div>
             </Router>

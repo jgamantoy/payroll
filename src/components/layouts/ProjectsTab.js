@@ -1,27 +1,31 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
-import ProjectCondensed from '../reuseable/ProjectCondensed';
 import { useHistory } from 'react-router-dom';
+import moment from 'moment';
+import ProjectCondensed from '../reuseable/ProjectCondensed';
 import axios from 'axios';
 
 const ProjectsTab = () => {
-  const [testArray, setTestArray] = useState([])
+  const [projectList, setProjectList] = useState([])
   const history = useHistory();
-
+  useEffect(()=>{
+    axios.get('http://localhost:3001/api/projects').then((res)=>{
+      console.log(res)
+      setProjectList(res.data)
+    })
+  }, [])
   return (
     <div className="ProjectsTab">
       <div className="ProjectsTab__main">
       <div className="ProjectsTab__main__list">
-          <h1>{testArray.length} Projects</h1>
+          <h1>{projectList.length} Projects</h1>
           <div className="ProjectsTab__main__list__check">
             <input type="checkbox" name="showCompleted"></input>
             <label for="showCompleted">Show Completed</label>
           </div>
-          {
-            testArray.map(()=>{
-              return <ProjectCondensed />
-            })
+          {projectList.length > 0 ?
+            projectList.map((proj)=>{
+              return <ProjectCondensed title={proj.name} dueDate={proj.end_date} cost={proj.total_cost} memCount={proj.member_count}/>
+            }) : ''
           }
         </div>
         <div className="ProjectsTab__main__summary">

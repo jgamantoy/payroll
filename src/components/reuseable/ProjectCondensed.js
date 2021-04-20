@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-const ProjectCondensed = () => {
-  const history = useHistory()
+const ProjectCondensed = (props) => {
+  const history = useHistory();
+  const {title, dueDate, cost, memCount} = props;
   return (
   <div 
     className="ProjectCondensed"
@@ -10,14 +11,14 @@ const ProjectCondensed = () => {
     >
     <div className="ProjectCondensed__main">
       <div className="ProjectCondensed__main__upper">
-        <h2>Project Title</h2>
-        <h4>Due date: Sept. 13, 2021</h4>
+        <h2>{title}</h2>
+        <h4>Due date: {dueDate}</h4>
       </div>
       <div className="ProjectCondensed__main__lower">
-        <p>Cost</p>
+        <p>Php {cost}</p>
         <div className="ProjectCondensed__lower__members">
           {/* Add image of human shape here */}
-          <p>10</p>
+          <p>{memCount}</p>
         </div>
       </div>
     </div>

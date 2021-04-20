@@ -1,5 +1,5 @@
 import React from 'react';
-import Member from '../reuseable/Member';
+// import Member from '../reuseable/Member';
 
 const Project = () => {
     const testArray = [1,2,3]
@@ -11,9 +11,9 @@ const Project = () => {
             <div className="Project__main">
                 <div className="Project__main__member">
                     <h2>Team</h2>
-                    {testArray.map(() => {
+                    {/* {testArray.map(() => {
                         return <Member />
-                    })}
+                    })} */}
                 </div>
                 <div className="Project__main__summary">
                     <div className="Project__main__summary__container">

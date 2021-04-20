@@ -3,9 +3,10 @@ import { Modal } from 'react-bootstrap';
 import moment from 'moment'
 import Member from '../reuseable/Member';
 import axios from 'axios';
-
+import { useHistory } from 'react-router-dom';
 
 const CreateProject = () => {
+    const history = useHistory();
     const [title, setTitle] = useState('')
     const [team, setTeam] = useState([]);
     const [personel, setPersonel] = useState([]);
@@ -15,7 +16,19 @@ const CreateProject = () => {
     const [payment, setPayment] = useState(0);
     const [startDate, setStartDate] = useState('');
     const [ endDate, setEndDate ] = useState('');
-    console.log(moment(startDate)._d > moment())
+    console.log(Number.isInteger(payment))
+    console.log(parseInt(payment))
+    
+    const totalCost = () => {
+        if (team.length > 0){
+            let tCost = 0;
+            team.forEach((member)=>{
+                tCost += parseInt(member.pay)
+            })
+            return tCost;
+        }
+        return 0
+    }
     const handleAdd = () => {
         let newItem
         if (activeAddMem !== null && role.length > 0 && payment.length > 0){
@@ -35,22 +48,21 @@ const CreateProject = () => {
     }
     const handleSubmit = () => {
         const newTeam = team.map((mem)=> {
-            return {id: mem.entity.id, name: mem.entity.name, role: mem.role, pay:mem.pay}
+            return {id: mem.entity.id, name: mem.entity.name, role: mem.role, pay:parseInt(mem.pay)}
         })
-        axios.post('http://localhost:3001/api/project', {title: title, team:newTeam, start_date: moment(startDate)._d, end_date: moment(endDate)._d}).then(()=>{
-        console.log('success')
+        axios.post('http://localhost:3001/api/project', 
+            {
+                title: title, 
+                team:newTeam, 
+                start_date: moment(startDate)._d, 
+                end_date: moment(endDate)._d,
+                total_cost: totalCost(),
+                member_count: newTeam.length
+            }).then(()=>{
         })
+        history.push('/')
     }
-    const totalCost = () => {
-        if (team.length > 0){
-            let tCost = 0;
-            team.forEach((member)=>{
-                tCost += parseInt(member.pay)
-            })
-            return tCost;
-        }
-        return 0
-    }
+
     useEffect(() => {
         axios.get('http://localhost:3001/api/members').then((res)=>{
             setPersonel(res.data);

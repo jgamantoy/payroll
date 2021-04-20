@@ -44,6 +44,7 @@ app.post('/api/project', (req, res) => {
                 const createTable = `CREATE TABLE ${title}(id int, name VARCHAR(255), role VARCHAR(255), pay int)`
                 con.query(createTable, (e, r) => {  
                     team.forEach((mem) => {
+                        console.log(mem)
                         const sqlInsert = `INSERT INTO ${title} (id,name,role,pay) VALUES (?,?,?,?)`
                         con.query(sqlInsert, [mem.id, mem.name, mem.role,  mem.pay])
                     })

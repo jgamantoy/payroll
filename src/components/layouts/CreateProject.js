@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
+import moment from 'moment'
 import Member from '../reuseable/Member';
 import axios from 'axios';
 
@@ -12,7 +13,9 @@ const CreateProject = () => {
     const [show, setShow] = useState(false);
     const [role, setRole] = useState('');
     const [payment, setPayment] = useState(0);
-    console.log(team)
+    const [startDate, setStartDate] = useState('');
+    const [ endDate, setEndDate ] = useState('');
+    console.log(moment(startDate)._d > moment())
     const handleAdd = () => {
         let newItem
         if (activeAddMem !== null && role.length > 0 && payment.length > 0){
@@ -32,9 +35,9 @@ const CreateProject = () => {
     }
     const handleSubmit = () => {
         const newTeam = team.map((mem)=> {
-            return {id: mem.entity.id, name: mem.entity.name, role: role, pay:payment}
+            return {id: mem.entity.id, name: mem.entity.name, role: mem.role, pay:mem.pay}
         })
-        axios.post('http://localhost:3001/api/project', {title: title, team:newTeam}).then(()=>{
+        axios.post('http://localhost:3001/api/project', {title: title, team:newTeam, start_date: moment(startDate)._d, end_date: moment(endDate)._d}).then(()=>{
         console.log('success')
         })
     }
@@ -64,8 +67,18 @@ const CreateProject = () => {
                             onChange={(e) => setTitle(e.target.value)}
                         />
                         <h3>Total Cost: Php {totalCost()}</h3>
-                        <p>Start Date:</p> <input type="date"></input>
-                        <p>End Date:</p> <input type="date"></input>
+                        <p>Start Date:</p> 
+                        <input 
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
+                        <p>End Date:</p> 
+                        <input 
+                            type="date" 
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                        />
                         <p> {team.length} members</p>
                         <button onClick={()=> handleSubmit()}>Save</button>
                     </div>

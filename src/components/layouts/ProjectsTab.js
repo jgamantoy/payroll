@@ -9,9 +9,20 @@ const ProjectsTab = () => {
   const history = useHistory();
   useEffect(()=>{
     axios.get('http://localhost:3001/api/projects').then((res)=>{
+      console.log(res.data)
       setProjectList(res.data)
     })
-  },)
+  }, [])
+  const totalCost = () => {
+    let sum = 0
+    if (projectList.length > 0){
+      projectList.forEach((project) => {
+        sum += project.total_cost;
+      })
+      return sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    return sum;
+  }
   return (
     <div className="ProjectsTab">
       <div className="ProjectsTab__main">
@@ -23,13 +34,13 @@ const ProjectsTab = () => {
           </div>
           {projectList.length > 0 ?
             projectList.map((proj)=>{
-              return <ProjectCondensed title={proj.name} dueDate={proj.end_date} cost={proj.total_cost} memCount={proj.member_count}/>
+              return <ProjectCondensed proj={proj}/>
             }) : ''
           }
         </div>
         <div className="ProjectsTab__main__summary">
           <h1>Total Cost</h1>
-          <h4> Php 12,000 /m</h4>
+          <h4> Php {totalCost()}</h4>
           <p>Sort:</p>
             <select>
               <option>Alphabetical</option>

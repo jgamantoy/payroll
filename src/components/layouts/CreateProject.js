@@ -3,22 +3,19 @@ import { Modal } from 'react-bootstrap';
 import moment from 'moment'
 import Member from '../reuseable/Member';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 
 const CreateProject = () => {
-    const history = useHistory();
     const [title, setTitle] = useState('')
     const [team, setTeam] = useState([]);
     const [personel, setPersonel] = useState([]);
     const [activeAddMem, setActiveAddMem] = useState(null);
     const [show, setShow] = useState(false);
     const [role, setRole] = useState('');
+    const [payInterval, setPayInterval] = useState(null)
     const [payment, setPayment] = useState(0);
     const [startDate, setStartDate] = useState('');
     const [ endDate, setEndDate ] = useState('');
-    console.log(Number.isInteger(payment))
-    console.log(parseInt(payment))
-    
+    console.log(payInterval)
     const totalCost = () => {
         if (team.length > 0){
             let tCost = 0;
@@ -29,6 +26,7 @@ const CreateProject = () => {
         }
         return 0
     }
+
     const handleAdd = () => {
         let newItem
         if (activeAddMem !== null && role.length > 0 && payment.length > 0){
@@ -61,15 +59,27 @@ const CreateProject = () => {
             }).then(()=>{
                 
         })
-        history.push('/')
-        
+        window.location.assign('/')
     }
-
     useEffect(() => {
         axios.get('http://localhost:3001/api/members').then((res)=>{
             setPersonel(res.data);
         })
     }, [])
+    const setUnChecked = () => {
+        const daily = document.querySelector('#daily');
+        const weekly = document.querySelector('#weekly');
+        const monthly = document.querySelector('#monthly');
+        if (daily.checked !==null) {
+            daily.checked =  false;
+        }
+        if (weekly.checked !==null) {
+            weekly.checked =  false;
+        }
+        if (monthly.checked !==null) {
+            daily.checked =  false;
+        }
+    }
     return(
         <div className="CreateProject">
             <div className="CreateProject__main">
@@ -95,6 +105,7 @@ const CreateProject = () => {
                         />
                         <p> {team.length} members</p>
                         <button onClick={()=> handleSubmit()}>Save</button>
+                        <button onClick={()=> setUnChecked()}>test</button>
                     </div>
                 <div className="CreateProject__main__member">
                     <h2>Team</h2>
@@ -130,18 +141,18 @@ const CreateProject = () => {
                         <div className="CreateProject__main__add__row">
 
                             <label>
-                                <input id="daily" type="radio" name="pay_date"/>
+                                <input id="daily" type="radio" name="pay_date" onClick={() => setPayInterval('daily')}/>
                                 {' '}Daily
                             </label>
 
                             <label>
-                                <input id="weekly" type="radio" name="pay_date"/>
+                                <input id="weekly" type="radio" name="pay_date" onClick={() => setPayInterval('weekly')}/>
                                 {' '}Weekly
                             </label>
 
                             <label>
-                                <input id="yearly" type="radio" name="pay_date"/>
-                                {' '}Yearly
+                                <input id="monthly" type="radio" name="pay_date" onClick={() => setPayInterval('monthly')}/>
+                                {' '}Monthly
                             </label>
                         </div>
                         <button onClick={()=> handleAdd()}>Add</button>

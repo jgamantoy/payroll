@@ -24,6 +24,7 @@ app.listen(3001, () => {
 })
 
 // CREATE --------------------------------------------
+
 app.post('/api/members', (req, res) => {
     console.log(req)
     const name = req.body.name;
@@ -36,8 +37,6 @@ app.post('/api/project/:title', (req, res) => {
     const { team, start_date, end_date, total_cost, member_count } = req.body
     const title = req.params.title
     const newTitle = title.replace(" ", "_")
-    console.log(title);
-    console.log(newTitle);
     const checkForTable = "SELECT * FROM ??"; 
     con.query(checkForTable, [newTitle], (error, result) =>{
         if (error){
@@ -53,16 +52,26 @@ app.post('/api/project/:title', (req, res) => {
             })
         }
         if (result) {
-            console.log(result);
+            // res.send('TABLE ALREADY EXIST')
         }
     })
     
 })
+
 // READ------------------------------------------------
+
 app.get('/api/members', (req, res) => {
     const sqlRetrieve = "SELECT * FROM members";
     con.query(sqlRetrieve, ( err, result) => {
         res.send(result);
+    })
+})
+app.get('/api/members/:project', (req, res) => {
+    const project = req.params.project.replace(" ", "_");
+    console.log(project)
+    const sqlRetrieve = `SELECT * FROM ${project}`;
+    con.query(sqlRetrieve, (error, result) => {
+        res.send(result)
     })
 })
 app.get('/api/projects', (req, res) => {
@@ -70,6 +79,13 @@ app.get('/api/projects', (req, res) => {
     con.query(sqlRetrieve, ( err, result) => {
         res.send(result);
     }) 
+})
+app.get('/api/project/:id', (req, res) => {
+    const project_id = req.params.id;
+    const sqlRetrieve = "SELECT * FROM projects WHERE id = ?";
+    con.query(sqlRetrieve, [project_id], (error, result) => {
+        res.send(result);
+    })
 })
 // UPDATE ----------------------------------------------
 app.put('/api/update/:id', (req, res) => {

@@ -10,9 +10,9 @@ const Member = (props) => {
     return (
         <div className="Member">
             <div className="Member__details">
-                <h3>{member.entity.name}</h3>
-                <h4>{member.role}</h4>
-                <p>Php {member.pay}/m</p>
+                <h3>{member? member.entity.name: ''}</h3>
+                <h4>{member ? member.role : ''}</h4>
+                <p>Php {member ? member.pay: ''}/m</p>
             </div>
             <div className="Member__image">
             </div>

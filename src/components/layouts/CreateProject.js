@@ -50,7 +50,7 @@ const CreateProject = () => {
         const newTeam = team.map((mem)=> {
             return {id: mem.entity.id, name: mem.entity.name, role: mem.role, pay:parseInt(mem.pay)}
         })
-        axios.post('http://localhost:3001/api/project', 
+        axios.post(`http://localhost:3001/api/project/${title}`, 
             {
                 title: title, 
                 team:newTeam, 
@@ -59,8 +59,10 @@ const CreateProject = () => {
                 total_cost: totalCost(),
                 member_count: newTeam.length
             }).then(()=>{
+                
         })
-        history.push('/')
+        // s
+        
     }
 
     useEffect(() => {

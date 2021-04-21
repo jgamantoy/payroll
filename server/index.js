@@ -32,27 +32,31 @@ app.post('/api/members', (req, res) => {
     const sqlInsert = "INSERT INTO members (name,contact,email) VALUES (?,?,?)";
     con.query(sqlInsert, [name,contact,email], (err, result) => {})
 })
-app.post('/api/project', (req, res) => {
-    const { title, team, start_date, end_date, total_cost, member_count } = req.body
-    const checkForTable = "SHOW TABLES LIKE ?"
-    con.query(checkForTable, [req.body.title], (err, result) => {
-        if (err){
-            console.log(err)
-        } else {
-            // if (result.length === 0){
-                const createTable = `CREATE TABLE ${title}(id int, name VARCHAR(255), role VARCHAR(255), pay int)`
-                con.query(createTable, (e, r) => {  
-                    team.forEach((mem) => {
-                        console.log(mem)
-                        const sqlInsert = `INSERT INTO ${title} (id,name,role,pay) VALUES (?,?,?,?)`
-                        con.query(sqlInsert, [mem.id, mem.name, mem.role,  mem.pay])
-                    })
-            // }
+app.post('/api/project/:title', (req, res) => {
+    const { team, start_date, end_date, total_cost, member_count } = req.body
+    const title = req.params.title
+    const newTitle = title.replace(" ", "_")
+    console.log(title);
+    console.log(newTitle);
+    const checkForTable = "SELECT * FROM ??"; 
+    con.query(checkForTable, [newTitle], (error, result) =>{
+        if (error){
+            const createTable = `CREATE TABLE ${newTitle} (member_id int, name VARCHAR(100), role VARCHAR(100), pay int, PRIMARY KEY (member_id))`
+            con.query(createTable, (err, res) => {
+                team.forEach((mem) => {
+                    console.log(mem)
+                    const sqlInsert = `INSERT INTO ${newTitle} (member_id,name,role,pay) VALUES (?,?,?,?)`
+                    con.query(sqlInsert, [mem.id, mem.name, mem.role, mem.pay])
+                })
+                const sqlInsert = 'INSERT INTO projects (name,start_date,end_date,total_cost,member_count) VALUE (?,?,?,?,?)'
+                con.query(sqlInsert, [title, start_date, end_date, total_cost, member_count])
             })
         }
+        if (result) {
+            console.log(result);
+        }
     })
-    const sqlInsert = 'INSERT INTO projects (name,start_date,end_date,total_cost,member_count) VALUE (?,?,?,?,?)'
-    con.query(sqlInsert, [title, start_date, end_date, total_cost, member_count])
+    
 })
 // READ------------------------------------------------
 app.get('/api/members', (req, res) => {

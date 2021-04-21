@@ -61,7 +61,7 @@ const CreateProject = () => {
             }).then(()=>{
                 
         })
-        // s
+        history.push('/')
         
     }
 

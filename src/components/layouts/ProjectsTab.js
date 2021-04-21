@@ -9,10 +9,9 @@ const ProjectsTab = () => {
   const history = useHistory();
   useEffect(()=>{
     axios.get('http://localhost:3001/api/projects').then((res)=>{
-      console.log(res)
       setProjectList(res.data)
     })
-  }, [])
+  },)
   return (
     <div className="ProjectsTab">
       <div className="ProjectsTab__main">

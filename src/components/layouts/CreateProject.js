@@ -70,7 +70,8 @@ const CreateProject = () => {
                 total_cost: totalCost(),
                 member_count: newTeam.length
             }).then(()=>{})
-            window.location.assign('/')
+            setTimeout(() => { window.location.assign('/') }, 5000);
+            // window.location.assign('/')
         } else {
             alert('missing info')
         }
@@ -155,17 +156,17 @@ const CreateProject = () => {
                         <div className="CreateProject__main__add__row">
 
                             <label>
-                                <input id="daily" type="radio" name="pay_date" onClick={() => setPayInterval('daily')}/>
+                                <input id="daily" type="radio" name="pay_date" onClick={() => setPayInterval('day')}/>
                                 {' '}Daily
                             </label>
 
                             <label>
-                                <input id="weekly" type="radio" name="pay_date" onClick={() => setPayInterval('weekly')}/>
+                                <input id="weekly" type="radio" name="pay_date" onClick={() => setPayInterval('week')}/>
                                 {' '}Weekly
                             </label>
 
                             <label>
-                                <input id="monthly" type="radio" name="pay_date" onClick={() => setPayInterval('monthly')}/>
+                                <input id="monthly" type="radio" name="pay_date" onClick={() => setPayInterval('month')}/>
                                 {' '}Monthly
                             </label>
                         </div>

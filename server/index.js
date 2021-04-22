@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql');
+const moment = require('moment')
+
 const app = express();
 const con = mysql.createConnection({
     host: "localhost",
@@ -9,6 +11,21 @@ const con = mysql.createConnection({
     password: "",
     database: "payroll"
 })
+
+const calcPayDates = (startDate, endDate, interval) => {
+    let paydays = []
+    let dayOne = moment(startDate).format("YYYY-MM-DD");
+    let dayTwo = moment(endDate).format("YYYY-MM-DD")
+
+    while(moment(dayOne).isBefore(dayTwo)){
+        dayOne = moment(dayOne).add(1, interval)
+        paydays.push(moment(dayOne).format("YYYY-MM-DD"))
+        // THIS CREATES AN ARRAY OF ALL THE PAY DAYS
+    }
+    return paydays
+}
+
+//---------------------------------------------------------------------------------
 
 con.connect(function(err) {
     if (err) throw err;
@@ -38,14 +55,22 @@ app.post('/api/project/:title', (req, res) => {
     const title = req.params.title
     const newTitle = title.replace(" ", "_")
     const checkForTable = "SELECT * FROM ??"; 
+    
     con.query(checkForTable, [newTitle], (error, result) =>{
         if (error){
             const createTable = `CREATE TABLE ${newTitle} (member_id int, name VARCHAR(255), role VARCHAR(255), pay int, pay_interval VARCHAR(255),PRIMARY KEY (member_id))`
             con.query(createTable, (err, res) => {
                 team.forEach((mem) => {
                     console.log(mem)
+                    const paydays = calcPayDates(start_date, end_date, mem.pay_interval);
                     const sqlInsert = `INSERT INTO ${newTitle} (member_id,name,role,pay, pay_interval) VALUES (?,?,?,?,?)`
                     con.query(sqlInsert, [mem.id, mem.name, mem.role, mem.pay, mem.pay_interval])
+                    paydays.forEach((day) => {
+                        console.log(day)
+                        const payAmount = mem.pay / paydays.length
+                        const sqlInsertPay = 'INSERT INTO transactions (member_id, name, project_name, pay_date, pay_amount) VALUES (?,?,?,?, ?)'
+                        con.query(sqlInsertPay, [mem.id, mem.name, title, day, payAmount.toFixed(2)])
+                    })
                 })
                 const sqlInsert = 'INSERT INTO projects (name,start_date,end_date,total_cost,member_count) VALUE (?,?,?,?,?)'
                 con.query(sqlInsert, [title, start_date, end_date, total_cost, member_count])
@@ -55,7 +80,6 @@ app.post('/api/project/:title', (req, res) => {
             // res.send('TABLE ALREADY EXIST')
         }
     })
-    
 })
 
 // READ------------------------------------------------

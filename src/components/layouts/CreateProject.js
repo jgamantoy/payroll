@@ -15,7 +15,7 @@ const CreateProject = () => {
     const [payment, setPayment] = useState(0);
     const [startDate, setStartDate] = useState('');
     const [ endDate, setEndDate ] = useState('');
-    console.log(payInterval)
+
     const totalCost = () => {
         if (team.length > 0){
             let tCost = 0;
@@ -26,14 +26,26 @@ const CreateProject = () => {
         }
         return 0
     }
-
+    const validateDates = () => {
+        if(startDate.length > 0 && endDate.length > 0){
+            const currentDate = moment(new Date()).format("YYYY-MM-DD");
+            if (endDate > startDate && startDate >= currentDate){
+                console.log('got it')
+                return true
+            }
+            console.log('mali part two')
+            return false
+        }
+        return false
+    }
     const handleAdd = () => {
         let newItem
-        if (activeAddMem !== null && role.length > 0 && payment.length > 0){
+        if (activeAddMem !== null && role.length > 0 && payment.length > 0 && payInterval !== null){
             newItem = {
                 entity: activeAddMem,
                 role: role,
                 pay: payment,
+                payInterval: payInterval,
             }
             setTeam([...team, newItem])
             setRole('');
@@ -46,9 +58,10 @@ const CreateProject = () => {
     }
     const handleSubmit = () => {
         const newTeam = team.map((mem)=> {
-            return {id: mem.entity.id, name: mem.entity.name, role: mem.role, pay:parseInt(mem.pay)}
+            return {id: mem.entity.id, name: mem.entity.name, role: mem.role, pay:parseInt(mem.pay), pay_interval: mem.payInterval}
         })
-        axios.post(`http://localhost:3001/api/project/${title}`, 
+        if (validateDates() && title.length > 0 && team.length > 0){
+            axios.post(`http://localhost:3001/api/project/${title}`, 
             {
                 title: title, 
                 team:newTeam, 
@@ -56,10 +69,11 @@ const CreateProject = () => {
                 end_date: moment(endDate)._d,
                 total_cost: totalCost(),
                 member_count: newTeam.length
-            }).then(()=>{
-                
-        })
-        window.location.assign('/')
+            }).then(()=>{})
+            window.location.assign('/')
+        } else {
+            alert('missing info')
+        }
     }
     useEffect(() => {
         axios.get('http://localhost:3001/api/members').then((res)=>{

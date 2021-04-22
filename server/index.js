@@ -40,12 +40,12 @@ app.post('/api/project/:title', (req, res) => {
     const checkForTable = "SELECT * FROM ??"; 
     con.query(checkForTable, [newTitle], (error, result) =>{
         if (error){
-            const createTable = `CREATE TABLE ${newTitle} (member_id int, name VARCHAR(100), role VARCHAR(100), pay int, PRIMARY KEY (member_id))`
+            const createTable = `CREATE TABLE ${newTitle} (member_id int, name VARCHAR(255), role VARCHAR(255), pay int, pay_interval VARCHAR(255),PRIMARY KEY (member_id))`
             con.query(createTable, (err, res) => {
                 team.forEach((mem) => {
                     console.log(mem)
-                    const sqlInsert = `INSERT INTO ${newTitle} (member_id,name,role,pay) VALUES (?,?,?,?)`
-                    con.query(sqlInsert, [mem.id, mem.name, mem.role, mem.pay])
+                    const sqlInsert = `INSERT INTO ${newTitle} (member_id,name,role,pay, pay_interval) VALUES (?,?,?,?,?)`
+                    con.query(sqlInsert, [mem.id, mem.name, mem.role, mem.pay, mem.pay_interval])
                 })
                 const sqlInsert = 'INSERT INTO projects (name,start_date,end_date,total_cost,member_count) VALUE (?,?,?,?,?)'
                 con.query(sqlInsert, [title, start_date, end_date, total_cost, member_count])

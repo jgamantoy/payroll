@@ -7,6 +7,7 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers, reload
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('')
     const [emailAddress, setEmailAddress] = useState('')
+    const [payMethod, setPayMethod] = useState('');
     const validateEmail = () => {
         const re = /\S+@\S+\.\S+/;
         return re.test(emailAddress);
@@ -22,8 +23,8 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers, reload
         return true;
       };
     const handleSubmit = () => {
-        if (validateEmail() && validatePhone() && name.length > 0){
-            const newItem = { name: name, contact: phoneNumber, email: emailAddress}
+        if (validateEmail() && validatePhone() && name.length > 0 && payMethod.length > 0){
+            const newItem = { name: name, contact: phoneNumber, email: emailAddress, payMethod: payMethod}
             axios.post('http://localhost:3001/api/members', newItem).then(()=> {
                 console.log('item saved');
             }).catch(()=> {
@@ -36,7 +37,11 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers, reload
             if (name.length === 0) {
                 const docEl = document.querySelector('#name');
                 docEl.style.border = '1px solid red';
-              }
+            }
+            if (payMethod.length === 0) {
+                const docEl = document.querySelector('#payMethod');
+                docEl.style.border = '1px solid red';
+            }
             if (!validatePhone()) {
                 const docEl = document.querySelector('#phone');
                 docEl.style.border = '1px solid red';
@@ -44,8 +49,7 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers, reload
             if (!validateEmail()) {
                 const docEl = document.querySelector('#email');
                 docEl.style.border = '1px solid red';
-              }
-            
+            }
         }
     }
     return (
@@ -94,6 +98,18 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers, reload
                             onChange={(e)=> {
                                 setEmailAddress(e.target.value)
                                 const docEl = document.querySelector('#email');
+                                docEl.style.border = '1px solid #000000';
+                            }}
+                        />
+                        <h4>Pay Method</h4>
+                        <input 
+                            type="text" 
+                            value={payMethod}
+                            id="payMethod"
+                            placeholder="Input pay method"
+                            onChange={(e)=> {
+                                setPayMethod(e.target.value)
+                                const docEl = document.querySelector('#payMethod');
                                 docEl.style.border = '1px solid #000000';
                             }}
                         />

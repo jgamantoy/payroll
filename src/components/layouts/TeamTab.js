@@ -7,9 +7,13 @@ import axios from 'axios';
 const TeamTab = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [teamMembers, setTeamMembers] = useState([])
+    const [filteredMembers, setFilteredMembers] = useState([])
     const [activePersonel, setActivePersonel] = useState(null)
+    const [filter, setFilter] = useState('')
     const [updateStatus, setUpdateStatus] = useState('off')
+
     const reload = () => window.location.reload();
+    
     const deleteMember = () => {
         axios.delete(`http://localhost:3001/api/delete/${activePersonel.id}`).then(()=> {
         })
@@ -17,22 +21,33 @@ const TeamTab = () => {
         setTeamMembers(newArray);
         setActivePersonel(null);
     }
+
     useEffect(()=>{
         axios.get('http://localhost:3001/api/members').then((res) => {
             console.log(res.data)
             setTeamMembers(res.data);
+            setFilteredMembers(res.data);
         })
     }, [])
+    useEffect(() => {
+        let filteredTeam = teamMembers.filter((tm) => tm.name.toLowerCase().includes(filter.toLowerCase()))
+        setFilteredMembers(filteredTeam)
+    }, [filter])
     return (
         <div className="TeamTab">
             <div className="TeamTab__list">
                 <h2>Personel</h2>
                 <div className="TeamTab__list__container">
                     <h4>{teamMembers.length} people</h4>
-                    <input type="text" placeholder="search for name"></input>
+                    <input 
+                        type="text" 
+                        value={filter}
+                        placeholder="search for name" 
+                        onChange={(e) => setFilter(e.target.value)}
+                    />
                     <div className="TeamTab__list__container__names">
                     <ul>
-                        {teamMembers.map((tm)=> {
+                        {filteredMembers.map((tm)=> {
                             return <li onClick={()=>setActivePersonel(tm)}>{tm.name}</li>
                         })}
                     </ul>
@@ -48,6 +63,7 @@ const TeamTab = () => {
                         <h2>{activePersonel !== null ? activePersonel.name : 'Name'}</h2>
                         <h4>Contact no: {activePersonel !== null ? activePersonel.contact : ''}</h4>
                         <h4>Address: {activePersonel !== null ? activePersonel.email : ''}</h4>
+                        <h4>Pay Method: {activePersonel !== null ? activePersonel.pay_method : ''}</h4>
                         {activePersonel ? 
                             <div className="TeamTab__desc__container__buttons">
                                 <button onClick={() => setUpdateStatus("on")}>Edit</button>

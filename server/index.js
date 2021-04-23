@@ -47,13 +47,14 @@ app.post('/api/members', (req, res) => {
     const name = req.body.name;
     const contact = req.body.contact;
     const email = req.body.email;
-    const sqlInsert = "INSERT INTO members (name,contact,email) VALUES (?,?,?)";
-    con.query(sqlInsert, [name,contact,email], (err, result) => {})
+    const payMethod = req.body.payMethod
+    const sqlInsert = "INSERT INTO members (name,contact,email, pay_method) VALUES (?,?,?,?)";
+    con.query(sqlInsert, [name,contact,email,payMethod], (err, result) => {})
 })
 app.post('/api/project/:title', (req, res) => {
     const { team, start_date, end_date, total_cost, member_count } = req.body
     const title = req.params.title
-    const newTitle = title.replace(" ", "_")
+    const newTitle = title.split(' ').join('_')
     const checkForTable = "SELECT * FROM ??"; 
     
     con.query(checkForTable, [newTitle], (error, result) =>{
@@ -63,13 +64,14 @@ app.post('/api/project/:title', (req, res) => {
                 team.forEach((mem) => {
                     console.log(mem)
                     const paydays = calcPayDates(start_date, end_date, mem.pay_interval);
+                    console.log(paydays)
                     const sqlInsert = `INSERT INTO ${newTitle} (member_id,name,role,pay, pay_interval) VALUES (?,?,?,?,?)`
                     con.query(sqlInsert, [mem.id, mem.name, mem.role, mem.pay, mem.pay_interval])
                     paydays.forEach((day) => {
                         console.log(day)
                         const payAmount = mem.pay / paydays.length
-                        const sqlInsertPay = 'INSERT INTO transactions (member_id, name, project_name, pay_date, pay_amount) VALUES (?,?,?,?, ?)'
-                        con.query(sqlInsertPay, [mem.id, mem.name, title, day, payAmount.toFixed(2)])
+                        const sqlInsertPay = 'INSERT INTO transactions (member_id, name, project_name, pay_date, pay_amount, status, transaction_no) VALUES (?,?,?,?,?,?,?)'
+                        con.query(sqlInsertPay, [mem.id, mem.name, title, day, payAmount.toFixed(2), 'unpayed', '-'])
                     })
                 })
                 const sqlInsert = 'INSERT INTO projects (name,start_date,end_date,total_cost,member_count) VALUE (?,?,?,?,?)'
@@ -91,7 +93,7 @@ app.get('/api/members', (req, res) => {
     })
 })
 app.get('/api/members/:project', (req, res) => {
-    const project = req.params.project.replace(" ", "_");
+    const project = req.params.project.split(' ').join('_')
     console.log(project)
     const sqlRetrieve = `SELECT * FROM ${project}`;
     con.query(sqlRetrieve, (error, result) => {
@@ -111,16 +113,38 @@ app.get('/api/project/:id', (req, res) => {
         res.send(result);
     })
 })
+app.get('/api/transactions', (req, res) => {
+    const sqlRetrieve = "SELECT * FROM transactions";
+    con.query(sqlRetrieve, (error, result) => {
+        res.send(result);
+    })
+})
 // UPDATE ----------------------------------------------
 app.put('/api/update/:id', (req, res) => {
     const memberId = req.params.id;
     const name = req.body.name;
     const contact = req.body.contact;
     const email = req.body.email;
-    const sqlUpdate = "UPDATE members SET name = ?, contact = ?, email = ? WHERE id = ? "
-    con.query(sqlUpdate, [name, contact, email, memberId], (err, result)=>{})
+    const pay_method = req.body.payMethod;
+    const sqlUpdate = "UPDATE members SET name = ?, contact = ?, email = ? , pay_method = ? WHERE id = ? "
+    con.query(sqlUpdate, [name, contact, email, pay_method, memberId], (err, result)=>{})
 })
+app.put('/api/update/transactions/:id', (req, res) => {
+    const transID = req.params.id
+    console.log(transID)
+    const transCode = req.body.transCode;
+    const sqlUpdate = "UPDATE transactions SET status = ?, transaction_no = ? WHERE trans_id = ?";
+    con.query(sqlUpdate, ['payed',transCode, transID] , (err, result) => {
+        if (err){            
+            console.log(err)
+        } 
+        if (result) {
+            console.log(result)
+        }
 
+
+    })
+})
 // DELETE ---------------------------------------------
 app.delete('/api/delete/:id', (req, res) => {
     const memberId = req.params.id

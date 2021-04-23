@@ -5,6 +5,7 @@ const EditPersonel = (props) => {
     const [newName, setNewName] = useState(activePersonel.name);
     const [newContact, setNewContact] = useState(activePersonel.contact);
     const [newEmail, setNewEmail] = useState(activePersonel.email);
+    const [newPayMethod, setNewPayMethod] = useState(activePersonel.pay_method);
 
     const validateEmail = () => {
         const re = /\S+@\S+\.\S+/;
@@ -21,8 +22,8 @@ const EditPersonel = (props) => {
         return true;
       };
     const handleSubmit = () => {
-        if (validateEmail() && validatePhone() && newName.length > 0){
-            const newItem = { name: newName, contact: newContact, email: newEmail}
+        if (validateEmail() && validatePhone() && newName.length > 0 && newPayMethod.length > 0){
+            const newItem = { name: newName, contact: newContact, email: newEmail, pay_method: newPayMethod}
             axios.put(`http://localhost:3001/api/update/${activePersonel.id}`, newItem).then(()=> {
                 console.log('item saved');
             }).catch(()=> {
@@ -39,7 +40,11 @@ const EditPersonel = (props) => {
             if (newName.length === 0) {
                 const docEl = document.querySelector('#name');
                 docEl.style.border = '1px solid red';
-              }
+            }
+            if (newPayMethod.length === 0) {
+                const docEl = document.querySelector('#payMethod');
+                docEl.style.border = '1px solid red';
+            }
             if (!validatePhone()) {
                 const docEl = document.querySelector('#phone');
                 docEl.style.border = '1px solid red';
@@ -47,8 +52,7 @@ const EditPersonel = (props) => {
             if (!validateEmail()) {
                 const docEl = document.querySelector('#email');
                 docEl.style.border = '1px solid red';
-              }
-            
+            }
         }
     }
     return (
@@ -88,6 +92,18 @@ const EditPersonel = (props) => {
                 onChange={(e)=> {
                     setNewEmail(e.target.value)
                     const docEl = document.querySelector('#email');
+                    docEl.style.border = '1px solid #000000';
+                }}
+            />
+            <h4>Pay Method</h4>
+            <input 
+                type="text" 
+                value={newPayMethod}
+                id="payMethod"
+                placeholder="Input pay method"
+                onChange={(e)=> {
+                    setNewPayMethod(e.target.value)
+                    const docEl = document.querySelector('#payMethod');
                     docEl.style.border = '1px solid #000000';
                 }}
             />

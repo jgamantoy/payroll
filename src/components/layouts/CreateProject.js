@@ -70,10 +70,20 @@ const CreateProject = () => {
                 total_cost: totalCost(),
                 member_count: newTeam.length
             }).then(()=>{})
-            setTimeout(() => { window.location.assign('/') }, 5000);
-            // window.location.assign('/')
+            setTimeout(() => { window.location.assign('/') }, 3000);
         } else {
-            alert('missing info')
+            if (startDate === ""){
+                alert('Please add start date')
+            }
+            if (endDate === "") {
+                alert('Please add end date')
+            }
+            if (title.length === 0) {
+                alert('Please add a title')
+            }
+            if (team.length === 0) {
+                alert('Please add team members')
+            }  
         }
     }
     useEffect(() => {
@@ -132,7 +142,11 @@ const CreateProject = () => {
                         <h2>Add Personal</h2>
                         <div className="CreateProject__main__add__row">
                             <h4>Name:</h4>
-                            {activeAddMem !== null ? <h4>{activeAddMem.name}</h4>:<button onClick={() => setShow(true)}>+</button>}
+                            {
+                            activeAddMem !== null ? <h4>{activeAddMem.name}</h4>
+                            : 
+                            <button onClick={() => setShow(true)}>+</button>
+                            }
                             
                         </div>
                         <div className="CreateProject__main__add__row">

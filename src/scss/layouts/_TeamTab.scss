@@ -27,9 +27,16 @@
                 padding-left: 10px;
             }
             &__names{
+                ul{
+                    border: 1px solid $red;
+                    border-bottom: none;
+                    width: 300px;
+                }
                 li{
                     cursor: pointer;
-                    margin-bottom: 10px;
+                    padding: 5px;
+                    list-style-type: none;
+                    border-bottom: 1px solid $red;
                 }
             }
         }

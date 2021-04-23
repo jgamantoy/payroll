@@ -1,0 +1,65 @@
+.Payments{
+    @include flexMain;
+    width: 100%;
+    height: $mainHeight;
+    &__main{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1366px;
+        height: 100%;
+        padding: 0 50px;
+        background-color: #FFFFFF;
+    }
+    .transactionItem{
+        display: flex;
+        // border: 1px solid $red;
+        // border-right: none;
+        // margin-bottom: 5px;
+        // width: 650px;
+        p{
+            margin-bottom: 0;
+        }
+        h4{
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+        button{
+            border: 1px solid #ffffff;
+            width: 150px;
+            background: $red;
+            color: #FFFFFF;
+        }
+        &__id{
+            box-sizing: border-box;
+            padding: 5px;
+            @include flexCenter;
+            min-width: 55px;
+            max-width: 55px;
+            text-align: center;
+            font-weight: bold;
+            border-right: 1px solid $red;
+            border-left: 1px solid $red;
+            border-bottom: 1px solid $red;
+        }
+        &__row{
+            padding: 5px;
+            @include flexCenter;
+            width: 200px;
+            height: 60px;
+            border-right: 1px solid $red;
+            border-bottom: 1px solid $red;
+            text-align: center;
+        }
+        .status{
+            width: 100px;
+        }
+        .transNo {
+            flex-grow: 1;
+            border-top: 1px solid $red;
+        }
+        button{
+            flex-grow: 1;
+        }
+    }
+}

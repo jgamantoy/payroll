@@ -14,6 +14,12 @@ const Navbar = () => {
                     Projects
                 </div>
                 <div 
+                    className={`Navbar__container__tab ${location.pathname === "/payments" ? 'active' : ''}`}
+                    onClick={()=> history.push('/payments')}
+                >
+                    Payments
+                </div>
+                <div 
                     className={`Navbar__container__tab ${location.pathname === "/team" ? 'active' : ''}`}
                     onClick={()=> history.push('/team')}
                 >

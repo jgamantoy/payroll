@@ -59,7 +59,6 @@ con.connect(function(err) {
       setUpTables()
     }
   })
-
 });
 
 

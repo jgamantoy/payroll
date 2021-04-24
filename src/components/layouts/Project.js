@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
-import Member from '../reuseable/Member';
 
 const Project = () => {
     const [projectData, setProjectData] = useState(null);
@@ -45,8 +44,8 @@ const Project = () => {
                     <div className="Project__main__summary__container">
                         <h2>Total Cost</h2>
                         <h3>Php {projectData !== null ? projectData.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ''}</h3>
-                        <p>Start Date: {projectData !== null ? moment(projectData.start_date).format("MMMM DD, YYYY") : ''}</p>
-                        <p>End Date: {projectData !== null ? moment(projectData.start_date).format("MMMM DD, YYYY") : ''}</p>
+                        <p>Start Date: {projectData !== null ? moment(projectData.start_date).add(1, 'day').format("MMMM DD, YYYY") : ''}</p>
+                        <p>End Date: {projectData !== null ? moment(projectData.end_date).add(1, 'day').format("MMMM DD, YYYY") : ''}</p>
                         <p> {projectData !== null ? projectData.member_count : ''} member/s</p>
                     </div>
                 </div>

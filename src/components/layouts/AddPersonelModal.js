@@ -63,9 +63,6 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers, reload
             />
             <Modal.Body>
                 <div className="AddPersonelModal">
-                        <div className="AddPersonelModal__image" style={{height: '250px', width: '250px', backgroundColor: '#c4c4c4'}}>
-                            image
-                        </div>
                         <h4>Name</h4>
                         <input 
                             type="text" 

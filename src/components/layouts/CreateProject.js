@@ -38,13 +38,24 @@ const CreateProject = () => {
         }
         return false
     }
+    const validatePay = () => {
+        // console.log(parseInt(payment))
+        // console.log(payment.split(" ").split(",").join(''))
+        console.log(parseInt(payment.split(",").join('')))
+        if (Number.isInteger(parseInt(payment.split(",").join('')))){
+            console.log('it is a number')
+            return true 
+        }
+            console.log('it is not a number')
+            return false
+    }   
     const handleAdd = () => {
         let newItem
-        if (activeAddMem !== null && role.length > 0 && payment.length > 0 && payInterval !== null){
+        if (activeAddMem !== null && role.length > 0 && validatePay() && payInterval !== null){
             newItem = {
                 entity: activeAddMem,
                 role: role,
-                pay: payment,
+                pay: parseInt(payment.split(",").join('')),
                 payInterval: payInterval,
             }
             setTeam([...team, newItem])
@@ -58,7 +69,7 @@ const CreateProject = () => {
     }
     const handleSubmit = () => {
         const newTeam = team.map((mem)=> {
-            return {id: mem.entity.id, name: mem.entity.name, role: mem.role, pay:parseInt(mem.pay), pay_interval: mem.payInterval}
+            return {id: mem.entity.id, name: mem.entity.name, role: mem.role, pay:mem.pay, pay_interval: mem.payInterval}
         })
         if (validateDates() && title.length > 0 && team.length > 0){
             axios.post(`http://localhost:3001/api/project/${title}`, 
@@ -91,20 +102,6 @@ const CreateProject = () => {
             setPersonel(res.data);
         })
     }, [])
-    const setUnChecked = () => {
-        const daily = document.querySelector('#daily');
-        const weekly = document.querySelector('#weekly');
-        const monthly = document.querySelector('#monthly');
-        if (daily.checked !==null) {
-            daily.checked =  false;
-        }
-        if (weekly.checked !==null) {
-            weekly.checked =  false;
-        }
-        if (monthly.checked !==null) {
-            daily.checked =  false;
-        }
-    }
     return(
         <div className="CreateProject">
             <div className="CreateProject__main">
@@ -130,7 +127,6 @@ const CreateProject = () => {
                         />
                         <p> {team.length} members</p>
                         <button onClick={()=> handleSubmit()}>Save</button>
-                        <button onClick={()=> setUnChecked()}>test</button>
                     </div>
                 <div className="CreateProject__main__member">
                     <h2>Team</h2>
@@ -162,9 +158,8 @@ const CreateProject = () => {
                             <h4>Total Pay:</h4>
                             <input 
                                 id="pay"
-                                type="number"
                                 value={payment}
-                                onChange={(e) => setPayment(e.target.value)}
+                                onChange={(e) => setPayment(e.target.value.split(" ").join(""))}
                             />
                         </div>
                         <div className="CreateProject__main__add__row">

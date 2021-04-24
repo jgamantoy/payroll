@@ -1,41 +1,35 @@
 .Member {
-    @include flexCenter;
-    justify-content: space-between;
-    padding: 10px;
-    width: 300px;
-    min-height: 120px;
-    border: 2px solid $grey;
-    position: relative;
-    &__image{
-        height: 100px;
-        width: 100px;
-        background-color: $grey;
+  @include flexCenter;
+  justify-content: space-between;
+  padding: 10px;
+  width: 300px;
+  min-height: 120px;
+  border: 2px solid $grey;
+  position: relative;
+  &__details {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    h3 {
+      font-size: 24px;
+      font-weight: bold;
     }
-    &__details{
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        width: 100%;
-        max-width: 150px;
-        h3{
-            font-size: 24px;
-            font-weight: bold;
-        }
-        h4{
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-        p{
-            font-size: 12px;
-        }
+    h4 {
+      font-size: 18px;
+      margin-bottom: 20px;
     }
-    &__exit{
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        img{
-            height: 20px;
-            width: 20px;
-        }
+    p {
+      font-size: 12px;
     }
+  }
+  &__exit {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    img {
+      height: 20px;
+      width: 20px;
+    }
+  }
 }

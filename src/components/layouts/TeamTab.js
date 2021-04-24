@@ -57,9 +57,7 @@ const TeamTab = () => {
             <div className="TeamTab__desc">
                 { updateStatus === "off" ? 
                     <div className="TeamTab__desc__container">
-                        <div className="TeamTab__desc__container__image" style={{height: '300px', width: '300px', backgroundColor: '#c4c4c4'}}>
-                            image
-                        </div>
+
                         <h2>{activePersonel !== null ? activePersonel.name : 'Name'}</h2>
                         <h4>Contact no: {activePersonel !== null ? activePersonel.contact : ''}</h4>
                         <h4>Address: {activePersonel !== null ? activePersonel.email : ''}</h4>

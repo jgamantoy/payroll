@@ -1,4 +1,5 @@
 const express = require('express');
+const fileupload = require("express-fileupload");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql');
@@ -33,6 +34,7 @@ con.connect(function(err) {
 })
 app.use(cors());
 app.use(express.json())
+app.use(fileupload())
 app.use(bodyParser.urlencoded({extended: true}));
 
 
@@ -43,7 +45,6 @@ app.listen(3001, () => {
 // CREATE --------------------------------------------
 
 app.post('/api/members', (req, res) => {
-    console.log(req)
     const name = req.body.name;
     const contact = req.body.contact;
     const email = req.body.email;
@@ -71,7 +72,11 @@ app.post('/api/project/:title', (req, res) => {
                         console.log(day)
                         const payAmount = mem.pay / paydays.length
                         const sqlInsertPay = 'INSERT INTO transactions (member_id, name, project_name, pay_date, pay_amount, status, transaction_no) VALUES (?,?,?,?,?,?,?)'
-                        con.query(sqlInsertPay, [mem.id, mem.name, title, day, payAmount.toFixed(2), 'unpayed', '-'])
+                        con.query(sqlInsertPay, [mem.id, mem.name, title, day, payAmount.toFixed(2), 'unpayed', '-'], (err, res) => {
+                            if (err) {
+                                console.log(`trans er ${err}`)
+                            }
+                        })
                     })
                 })
                 const sqlInsert = 'INSERT INTO projects (name,start_date,end_date,total_cost,member_count) VALUE (?,?,?,?,?)'

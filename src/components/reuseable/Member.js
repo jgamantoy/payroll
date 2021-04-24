@@ -14,8 +14,6 @@ const Member = (props) => {
                 <h4>{member ? member.role : ''}</h4>
                 <p>Php {member ? member.pay: ''}/m</p>
             </div>
-            <div className="Member__image">
-            </div>
             <div className="Member__exit">
                 <img 
                     src="/images/black_x.png"

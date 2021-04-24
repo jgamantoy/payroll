@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 
 const Payments = () => {
     const [ transactionList, setTransactionList ] = useState([]);
@@ -30,7 +29,6 @@ const Payments = () => {
         )
     }
     const transactionItem = (item) => {
-        console.log(item)
         if (item.status === 'payed' && showPayed === false){
             return ""
         }
@@ -70,7 +68,6 @@ const Payments = () => {
         )
     }
     const handleUpdate = (id) => {
-        console.log(id)
         let passTCode = prompt(`Enter Transaction Code ${id}`)
         if (passTCode !== null) {
             if (passTCode.length > 0 ) {
@@ -81,6 +78,24 @@ const Payments = () => {
                 alert('Please put a transaction code')
             }
             
+        }
+    }
+    const emptyList = () => {
+        const unpayedList = transactionList.filter((item) => {return item.status === 'unpayed'} )
+        const payedList = transactionList.filter((item) => {return item.status === 'payed'})
+        if (unpayedList.length ===  0 && !showPayed){
+            return (
+                <div>
+                    <h4>Nothing to show</h4>
+                </div>
+                )
+        }
+        if (payedList.length === 0 & showPayed){
+            return (
+                <div>
+                    <h4>Nothing to show</h4>
+                </div>
+                )
         }
     }
     useEffect(() => {
@@ -96,8 +111,8 @@ const Payments = () => {
                 <h1>Transactions</h1>
                 <button onClick={() => setShowPayed(!showPayed)}>{showPayed ? 'Hide Payed' : 'Show Payed'}</button>
                 </div>
-                
                 {transactionHeader()}
+                {emptyList()}
                 {transactionList.map((item)=> {
                     return transactionItem(item)
                 })}

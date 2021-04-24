@@ -1,81 +1,81 @@
 .TeamTab {
-    @include flexCenter;
+  @include flexCenter;
+  align-items: flex-start;
+  width: 100%;
+  height: $mainHeight;
+  max-width: 1366px;
+  background-color: #ffffff;
+  padding: 0 100px;
+  position: relative;
+  &__list {
+    padding: 50px;
+    h2 {
+      font-size: 64px;
+      font-weight: bold;
+    }
+    width: 50%;
+    height: 100%;
+    &__container {
+      h4 {
+        margin-bottom: 5px;
+      }
+      input {
+        width: 300px;
+        height: 40px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        padding-left: 10px;
+      }
+      &__names {
+        ul {
+          border: 1px solid $red;
+          border-bottom: none;
+          width: 300px;
+        }
+        li {
+          cursor: pointer;
+          padding: 5px;
+          list-style-type: none;
+          border-bottom: 1px solid $red;
+        }
+      }
+    }
+  }
+  &__desc {
+    display: flex;
     align-items: flex-start;
-    width: 100%;
-    height: $mainHeight;
-    max-width: 1366px;
-    background-color: #FFFFFF;
-    padding: 0 50px;
-    position: relative;
-    &__list{
-        padding: 50px;
-        h2{
-            font-size: 64px;
-            font-weight: bold;
-        }
-        width: 50%;
-        height: 100%;
-        &__container{
-            h4{
-                margin-bottom: 5px;
-            }
-            input{
-                width: 300px;
-                height: 40px;
-                margin-bottom: 10px;
-                font-size: 16px;
-                padding-left: 10px;
-            }
-            &__names{
-                ul{
-                    border: 1px solid $red;
-                    border-bottom: none;
-                    width: 300px;
-                }
-                li{
-                    cursor: pointer;
-                    padding: 5px;
-                    list-style-type: none;
-                    border-bottom: 1px solid $red;
-                }
-            }
-        }
-    }
-    &__desc{
+    padding: 50px;
+    width: 50%;
+    height: 100%;
+    &__container {
+      h2 {
+        margin: 10px 0;
+        font-size: 32px;
+      }
+      h4 {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      &__buttons {
         @include flexCenter;
-        align-items: flex-start;
-        padding: 50px;
-        width: 50%;
-        height: 100%;
-        &__container{
-            h2{
-                margin: 10px 0;
-                font-size: 32px;
-            }
-            h4{
-                font-size: 18px;
-                margin-bottom: 5px;
-            }
-            &__buttons{
-                @include flexCenter;
-                justify-content: flex-end;
-                width: 100%;
-                button{
-                    width: 100px;
-                    margin-left: 10px;
-                }
-            }
+        justify-content: flex-end;
+        width: 100%;
+        button {
+          width: 100px;
+          margin-left: 10px;
         }
+      }
     }
-    &__plus{
-        position: absolute;
-        bottom: 50px;
-        right: 100px;
-        z-index: 99;
-        cursor: pointer;
-        img{
-            width: 50px;
-            height: 50px;
-        }
+  }
+  &__plus {
+    position: absolute;
+    bottom: 50px;
+    right: 100px;
+    z-index: 99;
+    cursor: pointer;
+    img {
+      width: 50px;
+      height: 50px;
     }
+  }
 }

@@ -8,37 +8,40 @@ const Project = () => {
     const [team, setTeam] = useState([]);
     const [transaction, setTransactions] = useState([])
     const projectId = useLocation().pathname.replace("/project/","");
-    console.log(transaction)
+    // console.log(transaction)
     useEffect(() => {
         axios.get(`http://localhost:3001/api/project/${projectId}`).then((res)=> {
             setProjectData(res.data[0])
             axios.get(`http://localhost:3001/api/members/${res.data[0].name}`).then((res)=>{
-                // console.log(res.data)
+                console.log(res.data)
                 setTeam(res.data)
             })
         })
-        // axios.get(`http://localhost:3001/api/transactions/hmmm`).then((res) => {
-        //         console.log(res.data)
-        //         setTransactions(res.data)
-        //     })
-        
-    }, [projectId])
-    useEffect(() => {
-        if (projectData !== null) {
-            axios.get(`http://localhost:3001/api/transactions/${projectData.name}`).then((res) => {
+        axios.get(`http://localhost:3001/api/transactions`).then((res) => {
                 // console.log(res.data)
                 setTransactions(res.data)
             })
-        }
-    }, [projectData])
-    const memberDetails = (member) => {
-        //try getting transactions and filtering all the transactions
         
+    }, [projectId])
+    // useEffect(() => {
+    //     if (projectData !== null) {
+    //         axios.get(`http://localhost:3001/api/transactions/${projectData.name}`).then((res) => {
+    //             // console.log(res.data)
+    //             setTransactions(res.data)
+    //         })
+    //     }
+    // }, [projectData])
+    const memberDetails = (member) => {
+        const payList = transaction.filter((tran) => tran.member_id === member.member_id && tran.project_name === projectData.name)
+        const payPerInterval = member.pay/payList.length
+        console.log(payList)
+        console.log(payPerInterval)
         return (
             <div className="memberDetails">
                 <h2>{member.name}</h2>
                 <h3>{member.role}</h3>
-                <h4>Php {member.pay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }</h4>
+                <h3>Php {member.pay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }</h3>
+                <h4>Php {payPerInterval.toFixed(2)}/{member.pay_interval}</h4>
             </div>
         )
     }

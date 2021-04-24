@@ -39,8 +39,6 @@ const CreateProject = () => {
         return false
     }
     const validatePay = () => {
-        // console.log(parseInt(payment))
-        // console.log(payment.split(" ").split(",").join(''))
         console.log(parseInt(payment.split(",").join('')))
         if (Number.isInteger(parseInt(payment.split(",").join('')))){
             console.log('it is a number')
@@ -112,7 +110,7 @@ const CreateProject = () => {
                             placeholder="Project Title"
                             onChange={(e) => setTitle(e.target.value)}
                         />
-                        <h3>Total Cost: Php {totalCost()}</h3>
+                        <h3>Total Cost: Php {totalCost().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
                         <p>Start Date:</p> 
                         <input 
                             type="date"

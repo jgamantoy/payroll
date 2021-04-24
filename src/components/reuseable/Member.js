@@ -12,7 +12,7 @@ const Member = (props) => {
             <div className="Member__details">
                 <h3>{member? member.entity.name: ''}</h3>
                 <h4>{member ? member.role : ''}</h4>
-                <p>Php {member ? member.pay: ''}/m</p>
+                <p>Php {member ? member.pay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","): ''}</p>
             </div>
             <div className="Member__exit">
                 <img 

@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import moment from 'moment';
 import ProjectCondensed from '../reuseable/ProjectCondensed';
 import axios from 'axios';
 
 const ProjectsTab = () => {
   const [projectList, setProjectList] = useState([])
+  const [filteredProjectList, setFilteredProjectList] = useState([])
+  const [search, setSearch] = useState('')
   const history = useHistory();
+  console.log(search)
   useEffect(()=>{
     axios.get('http://localhost:3001/api/projects').then((res)=>{
-      console.log(res.data)
       setProjectList(res.data)
+      setFilteredProjectList(res.data)
     })
   }, [])
+  useEffect(()=> {
+    let newList = projectList.filter((proj) => proj.name.toLowerCase().includes(search) )
+    setFilteredProjectList(newList)
+  }, [search])
   const totalCost = () => {
     let sum = 0
     if (projectList.length > 0){
@@ -32,8 +38,8 @@ const ProjectsTab = () => {
             <input type="checkbox" name="showCompleted"></input>
             <label for="showCompleted">Show Completed</label>
           </div>
-          {projectList.length > 0 ?
-            projectList.map((proj)=>{
+          {filteredProjectList.length > 0 ?
+            filteredProjectList.map((proj)=>{
               return <ProjectCondensed proj={proj}/>
             }) : ''
           }
@@ -41,13 +47,12 @@ const ProjectsTab = () => {
         <div className="ProjectsTab__main__summary">
           <h1>Total Cost</h1>
           <h4> Php {totalCost()}</h4>
-          <p>Sort:</p>
-            <select>
-              <option>Alphabetical</option>
-              <option>Newest to Oldest</option>
-              <option>Oldest to Newest</option>
-            </select>
-
+          <input 
+            type="text"
+            value={search}
+            placeholder="Search for project"
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <div className="ProjectsTab__main__plus">
           <img

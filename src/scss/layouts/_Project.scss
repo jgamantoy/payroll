@@ -1,75 +1,73 @@
-.Project{
-    @include flexMain;
+.Project {
+  @include flexMain;
+  width: 100%;
+  max-width: 1366px;
+  background-color: #ffffff;
+  height: $mainHeight;
+  &__header {
     width: 100%;
-    max-width: 1366px;
-    background-color: #FFFFFF;
-    height: $mainHeight;
-    &__header{
-        width: 100%;
-        padding: 10px 20px;
-        h1{
-            font-size: 64px;
-            font-weight: 700;
-            border-bottom: 3px solid $red;
-        }
+    padding: 10px 20px;
+    h1 {
+      font-size: 64px;
+      font-weight: 700;
+      border-bottom: 3px solid $red;
     }
-    &__main{
-        @include flexCenter;
-        width: 100%;
-        height: 100%;
-        &__member{
-            width: 50%;
-            height: 100%;
-            padding: 0 100px;
-            h2{
-                font-size: 48px;
-                font-weight: 700px;
-            }
-            .Member{
-                margin-bottom: 10px;
-            }
-        }
-        &__summary{
-            width: 50%;
-            height: 100%;
-            &__container{
-                width: 288px;
-                height: 245px;
-                border: 2px solid $grey;
-                padding: 5px 10px;
-                h2{
-                    font-size: 48px;
-                    font-weight: 700;
-                }
-                h3{
-                    font-size: 24px;
-                    font-weight: 700;
-                    padding: 5px 0;
-                    border-bottom: 3px solid $red;
-                }
-                p{
-                    font-size: 18px;
-                    font-weight: 700;
-                    margin-top: 12px;
-                }
-            }
-        }
+  }
+  &__main {
+    @include flexCenter;
+    width: 100%;
+    height: 100%;
+    &__member {
+      width: 50%;
+      height: 100%;
+      padding: 0 100px;
+      h2 {
+        font-size: 48px;
+        font-weight: 700px;
+      }
     }
-    .memberDetails{
+    &__summary {
+      width: 50%;
+      height: 100%;
+      &__container {
+        width: 288px;
+        height: 245px;
         border: 2px solid $grey;
         padding: 5px 10px;
-        margin-bottom: 10px;
-        h2{
-            font-size: 22px;
-            font-weight: bold;
+        h2 {
+          font-size: 48px;
+          font-weight: 700;
         }
-        h3{
-            font-size: 18px;
-            font-weight: medium;
+        h3 {
+          font-size: 24px;
+          font-weight: 700;
+          padding: 5px 0;
+          border-bottom: 3px solid $red;
         }
-        h4{
-            font-size: 14px;
-            font-weight: lighter;
+        p {
+          font-size: 18px;
+          font-weight: 700;
+          margin-top: 12px;
         }
+      }
     }
+  }
+  .memberDetails {
+    border: 2px solid $grey;
+    padding: 5px 10px;
+    width: 300px;
+    margin-bottom: 10px;
+    h2 {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    h3 {
+      font-size: 18px;
+      font-weight: medium;
+    }
+    h4 {
+      font-size: 14px;
+      font-weight: lighter;
+    }
+  }
 }

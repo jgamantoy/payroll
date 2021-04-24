@@ -124,6 +124,13 @@ app.get('/api/transactions', (req, res) => {
         res.send(result);
     })
 })
+app.get('/api/transactions/:project', (req, res) => {
+    const projName = req.params.project.split(' ').join('_');
+    const sqlRetrieve = "SELECT * FROM transactions WHERE project_name = ?"
+    con.query(sqlRetrieve, [projName], (err, result) => {
+        res.send(result)
+    })
+})
 // UPDATE ----------------------------------------------
 app.put('/api/update/:id', (req, res) => {
     const memberId = req.params.id;

@@ -6,19 +6,34 @@ import moment from 'moment';
 const Project = () => {
     const [projectData, setProjectData] = useState(null);
     const [team, setTeam] = useState([]);
+    const [transaction, setTransactions] = useState([])
     const projectId = useLocation().pathname.replace("/project/","");
-
+    console.log(transaction)
     useEffect(() => {
         axios.get(`http://localhost:3001/api/project/${projectId}`).then((res)=> {
             setProjectData(res.data[0])
             axios.get(`http://localhost:3001/api/members/${res.data[0].name}`).then((res)=>{
-                console.log(res.data)
+                // console.log(res.data)
                 setTeam(res.data)
             })
         })
+        // axios.get(`http://localhost:3001/api/transactions/hmmm`).then((res) => {
+        //         console.log(res.data)
+        //         setTransactions(res.data)
+        //     })
+        
     }, [projectId])
-
+    useEffect(() => {
+        if (projectData !== null) {
+            axios.get(`http://localhost:3001/api/transactions/${projectData.name}`).then((res) => {
+                // console.log(res.data)
+                setTransactions(res.data)
+            })
+        }
+    }, [projectData])
     const memberDetails = (member) => {
+        //try getting transactions and filtering all the transactions
+        
         return (
             <div className="memberDetails">
                 <h2>{member.name}</h2>
@@ -36,7 +51,7 @@ const Project = () => {
                 <div className="Project__main__member">
                     <h2>Team</h2>
                     {team.length > 0 ? team.map((member) => {
-                        console.log(member)
+                        // console.log(member)
                         return memberDetails(member)
                     }): ''}
                 </div>

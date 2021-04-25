@@ -3,10 +3,11 @@
   width: 100%;
   max-width: 1366px;
   background-color: #ffffff;
-  height: $mainHeight;
+  min-height: $mainHeight;
   &__header {
     width: 100%;
     padding: 10px 20px;
+    min-height: $mainHeight;
     h1 {
       font-size: 64px;
       font-weight: 700;

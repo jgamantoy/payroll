@@ -57,9 +57,6 @@ const EditPersonel = (props) => {
     }
     return (
         <div className="EditPersonel">
-            <div className="EditPersonel__image" style={{height: '250px', width: '250px', backgroundColor: '#c4c4c4'}}>
-                image
-            </div>
             <h4>Name</h4>
             <input 
                 type="text" 
@@ -107,9 +104,9 @@ const EditPersonel = (props) => {
                     docEl.style.border = '1px solid #000000';
                 }}
             />
-            <div className="EditePersonel__buttons">
+            <div className="EditPersonel__buttons">
                 <button onClick={()=> handleSubmit()}>
-                    Add Personel
+                    Save
                 </button>
                 <button onClick={()=> setUpdateStatus('off')}>
                     Cancel

@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import moment from 'moment'
 const Payments = () => {
     const [ transactionList, setTransactionList ] = useState([]);
     const [ showPayed, setShowPayed ] = useState(false);
+    const [ sortSettings, setSortSettings ] = useState('nto')
+    const [ searchInput, setSearchInput ] = useState('')
+    const [ searchSetting, setSearchSetting] = useState('emp')
+    console.log(searchInput)
     const transactionHeader = () => {
         return (
             <div className="transactionItem">
-                <div className="transactionItem__id">
+                <div className="transactionItem__id header">
                     <h4>Trans ID</h4>
                 </div>
-                <div className="transactionItem__row">
+                <div className="transactionItem__row header">
                     <h4>Pay Date</h4>
                 </div>
-                <div className="transactionItem__row">
+                <div className="transactionItem__row header">
                     <h4>Project Name</h4>
                 </div>
-                <div className="transactionItem__row">
+                <div className="transactionItem__row header">
                     <h4>Employee Name</h4>
                 </div>
-                <div className="transactionItem__row">
+                <div className="transactionItem__row header">
                     <h4>Amount</h4>
                 </div>
-                <div className="transactionItem__row status">
+                <div className="transactionItem__row header status">
                     <h4>Status</h4>
+                </div>
+                <div className="transactionItem__row transNo header">
+                    
                 </div>
             </div>
         )
@@ -38,7 +45,7 @@ const Payments = () => {
                     <p>{item.trans_id}</p>
                 </div>
                 <div className="transactionItem__row">
-                <   p>{item.pay_date}</p>
+                <   p>{moment(item.pay_date).format("MMMM DD, YYYY")}</p>
                 </div>
                 <div className="transactionItem__row">
                     <p>{item.project_name}</p>
@@ -80,36 +87,69 @@ const Payments = () => {
             
         }
     }
+    const handleSearch = (text) => {
+        setSearchInput(text)
+    }
     const emptyList = () => {
         const unpayedList = transactionList.filter((item) => {return item.status === 'unpayed'} )
         const payedList = transactionList.filter((item) => {return item.status === 'payed'})
         if (unpayedList.length ===  0 && !showPayed){
             return (
-                <div>
-                    <h4>Nothing to show</h4>
+                <div className = "emptyList">
+                    <h4>Nothing to show...</h4>
                 </div>
                 )
         }
-        if (payedList.length === 0 & showPayed){
+        if (payedList.length === 0 && unpayedList.length === 0 && showPayed){
             return (
-                <div>
-                    <h4>Nothing to show</h4>
+                <div className="emptyList">
+                    <h4>Nothing to show...</h4>
                 </div>
                 )
         }
     }
     useEffect(() => {
         axios.get('http://localhost:3001/api/transactions').then((res) => {
-            const data = res.data.sort((a, b) =>  -(new Date(a.pay_date) - new Date(b.pay_date)))
+            let data = res.data.sort((a, b) =>  -(new Date(a.pay_date) - new Date(b.pay_date)))
             setTransactionList(data)
         })
     }, [])
+    useEffect(() => {
+        const data = transactionList
+        if (sortSettings === 'nto'){
+            data.sort((a, b) =>  -(new Date(a.pay_date) - new Date(b.pay_date)))
+            setSortSettings(data)
+        }
+        if (sortSettings === 'otn') {
+            data.sort((a, b) =>  (new Date(a.pay_date) - new Date(b.pay_date)))
+            setSortSettings(data)
+        }
+    }, [sortSettings])
     return(
         <div className="Payments">
             <div className="Payments__main">
-                <div style={{display: 'flex'}}>
-                <h1>Transactions</h1>
-                <button onClick={() => setShowPayed(!showPayed)}>{showPayed ? 'Hide Payed' : 'Show Payed'}</button>
+                <div className="Payments__main__header">
+                    <h1>Transactions</h1>
+                    <button 
+                        id="showPayed" 
+                        onClick={() => setShowPayed(!showPayed)}>{showPayed ? 'Hide Payed' : 'Show Payed'}
+                    </button>
+                    <select> Sort By
+                        <option onClick={() => setSortSettings('nto')}>Newest to Oldest</option>
+                        <option onClick={() => setSortSettings('otn')}>Oldest to Newest</option>
+                    </select>
+                    <div className="Payments__main__header__search">
+                        <input
+                            type="text"
+                            value={searchInput}
+                            placeholder="Search by ..."
+                            onChange={(e) => handleSearch(e.target.value)}
+                        />
+                        <select>
+                            <option>> Employee</option>
+                            <option>> Project</option>
+                        </select>
+                    </div>
                 </div>
                 {transactionHeader()}
                 {emptyList()}

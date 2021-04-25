@@ -17,8 +17,12 @@ const ProjectCondensed = (props) => {
       </div>
       <div className="ProjectCondensed__main__lower">
         <p>Php {total_cost ? total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0}</p>
-        <div className="ProjectCondensed__lower__members">
+        <div className="ProjectCondensed__main__lower__members">
           {/* Add image of human shape here */}
+          <img
+            src="/images/human.png"
+            alt="icon"
+          />
           <p>{member_count}</p>
         </div>
       </div>

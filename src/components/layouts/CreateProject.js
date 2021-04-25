@@ -30,12 +30,13 @@ const CreateProject = () => {
         if(startDate.length > 0 && endDate.length > 0){
             const currentDate = moment(new Date()).format("YYYY-MM-DD");
             if (endDate > startDate && startDate >= currentDate){
-                console.log('got it')
+                console.log('Dates Saved')
                 return true
             }
-            console.log('mali part two')
+            console.log('Error: Incorrect Dates')
             return false
         }
+        console.log('Error: Missing dates')
         return false
     }
     const validatePay = () => {
@@ -79,7 +80,7 @@ const CreateProject = () => {
                 total_cost: totalCost(),
                 member_count: newTeam.length
             }).then(()=>{})
-            setTimeout(() => { window.location.assign('/') }, 3000);
+            setTimeout(() => { window.location.assign('/') }, 1000);
         } else {
             if (startDate === ""){
                 alert('Please add start date')
@@ -159,6 +160,9 @@ const CreateProject = () => {
                                 value={payment}
                                 onChange={(e) => setPayment(e.target.value.split(" ").join(""))}
                             />
+                        </div>
+                        <div className="CreateProject__main__add__row">
+                            <h4>Pay Interval:</h4>
                         </div>
                         <div className="CreateProject__main__add__row">
 

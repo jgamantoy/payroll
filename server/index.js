@@ -1,5 +1,4 @@
 const express = require('express');
-const fileupload = require("express-fileupload");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql');
@@ -34,7 +33,6 @@ con.connect(function(err) {
 })
 app.use(cors());
 app.use(express.json())
-app.use(fileupload())
 app.use(bodyParser.urlencoded({extended: true}));
 
 

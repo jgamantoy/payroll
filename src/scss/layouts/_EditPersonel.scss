@@ -1,0 +1,25 @@
+.EditPersonel {
+  h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+  }
+  input {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      border: none;
+      background-color: $red;
+      color: #ffffff;
+      padding: 5px;
+      width: 80px;
+      margin-left: 10px;
+    }
+  }
+}

@@ -2,13 +2,13 @@
   @include flexCenter;
   align-items: flex-start;
   width: 100%;
-  height: $mainHeight;
+  min-height: $mainHeight;
   max-width: 1366px;
   background-color: #ffffff;
-  padding: 0 100px;
+  padding: 20px 100px;
   position: relative;
   &__list {
-    padding: 50px;
+    padding: 0 50px;
     h2 {
       font-size: 64px;
       font-weight: bold;
@@ -20,7 +20,7 @@
         margin-bottom: 5px;
       }
       input {
-        width: 300px;
+        width: 400px;
         height: 40px;
         margin-bottom: 10px;
         font-size: 16px;
@@ -30,13 +30,19 @@
         ul {
           border: 1px solid $red;
           border-bottom: none;
-          width: 300px;
+          width: 400px;
         }
         li {
           cursor: pointer;
           padding: 5px;
           list-style-type: none;
-          border-bottom: 1px solid $red;
+          background-color: $red;
+          color: #ffffff;
+          font-size: 16px;
+          margin-bottom: 1px;
+        }
+        li:hover {
+          background-color: $darker-red;
         }
       }
     }
@@ -44,17 +50,21 @@
   &__desc {
     display: flex;
     align-items: flex-start;
-    padding: 50px;
+    padding: 110px 50px;
     width: 50%;
     height: 100%;
     &__container {
+      width: 400px;
       h2 {
-        margin: 10px 0;
-        font-size: 32px;
+        margin: 5px 0;
+        font-size: 36px;
+        font-weight: bold;
       }
       h4 {
+        color: #444444;
         font-size: 18px;
         margin-bottom: 5px;
+        margin-left: 5px;
       }
       &__buttons {
         @include flexCenter;
@@ -62,7 +72,14 @@
         width: 100%;
         button {
           width: 100px;
+          height: 35px;
           margin-left: 10px;
+          background-color: $red;
+          color: #ffffff;
+          border: none;
+        }
+        button:hover {
+          border: 3px solid #000000;
         }
       }
     }

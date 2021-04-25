@@ -8,7 +8,6 @@ const Project = () => {
     const [team, setTeam] = useState([]);
     const [transaction, setTransactions] = useState([])
     const projectId = useLocation().pathname.replace("/project/","");
-    // console.log(transaction)
     useEffect(() => {
         axios.get(`http://localhost:3001/api/project/${projectId}`).then((res)=> {
             setProjectData(res.data[0])
@@ -18,19 +17,10 @@ const Project = () => {
             })
         })
         axios.get(`http://localhost:3001/api/transactions`).then((res) => {
-                // console.log(res.data)
                 setTransactions(res.data)
             })
         
     }, [projectId])
-    // useEffect(() => {
-    //     if (projectData !== null) {
-    //         axios.get(`http://localhost:3001/api/transactions/${projectData.name}`).then((res) => {
-    //             // console.log(res.data)
-    //             setTransactions(res.data)
-    //         })
-    //     }
-    // }, [projectData])
     const memberDetails = (member) => {
         const payList = transaction.filter((tran) => tran.member_id === member.member_id && tran.project_name === projectData.name)
         const payPerInterval = member.pay/payList.length
@@ -54,7 +44,6 @@ const Project = () => {
                 <div className="Project__main__member">
                     <h2>Team</h2>
                     {team.length > 0 ? team.map((member) => {
-                        // console.log(member)
                         return memberDetails(member)
                     }): ''}
                 </div>
@@ -62,9 +51,17 @@ const Project = () => {
                     <div className="Project__main__summary__container">
                         <h2>Total Cost</h2>
                         <h3>Php {projectData !== null ? projectData.total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ''}</h3>
-                        <p>Start Date: {projectData !== null ? moment(projectData.start_date).add(1, 'day').format("MMMM DD, YYYY") : ''}</p>
-                        <p>End Date: {projectData !== null ? moment(projectData.end_date).add(1, 'day').format("MMMM DD, YYYY") : ''}</p>
-                        <p> {projectData !== null ? projectData.member_count : ''} member/s</p>
+                        <div className="Project__main__summary__container__members">
+                            <img 
+                                src="/images/human.png"
+                                alt="members"
+                            />
+                            <p> {projectData !== null ? projectData.member_count : ''} member/s</p>
+                        </div>
+                        <div className="Project__main__summary__container__dates">
+                            <p>Start Date: {projectData !== null ? moment(projectData.start_date).add(1, 'day').format("MMMM DD, YYYY") : ''}</p>
+                            <p>End Date: {projectData !== null ? moment(projectData.end_date).add(1, 'day').format("MMMM DD, YYYY") : ''}</p>
+                        </div>
                     </div>
                 </div>
             </div>

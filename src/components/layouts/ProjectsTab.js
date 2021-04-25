@@ -41,7 +41,8 @@ const ProjectsTab = () => {
           {filteredProjectList.length > 0 ?
             filteredProjectList.map((proj)=>{
               return <ProjectCondensed proj={proj}/>
-            }) : ''
+            }) : 
+            <h4>Nothing to show...</h4>
           }
         </div>
         <div className="ProjectsTab__main__summary">

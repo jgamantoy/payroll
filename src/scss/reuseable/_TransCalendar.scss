@@ -1,0 +1,38 @@
+.TransCalendar {
+  display: flex;
+  flex-direction: column;
+  max-height: 300px;
+  overflow: auto;
+  width: 480px;
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid $red;
+    margin-bottom: 1px;
+    text-align: center;
+    width: 460px;
+    &__date {
+      @include flexCenter;
+      padding: 5px;
+      width: 100px;
+    }
+    &__proj {
+      @include flexCenter;
+      padding: 5px;
+      width: 130px;
+    }
+    &__name {
+      @include flexCenter;
+      padding: 5px;
+      width: 130px;
+    }
+  }
+  p {
+    margin: 0;
+  }
+  h5 {
+    margin-left: 25px;
+    color: $grey;
+    margin-bottom: 0;
+  }
+}

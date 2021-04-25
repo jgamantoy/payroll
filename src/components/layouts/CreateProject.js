@@ -5,16 +5,22 @@ import Member from '../reuseable/Member';
 import axios from 'axios';
 
 const CreateProject = () => {
+    const [existingProjects, setExistingProjects] = useState([]) //Gets list of existing projects to check if project already exists
+    const [personel, setPersonel] = useState([]); //List of employees to be mapped
+    const [personelSet, setPersonelSet] = useState([]); // Static list of employees, to be filtered and set to personel
+
+    //To be passed into back end
     const [title, setTitle] = useState('')
     const [team, setTeam] = useState([]);
-    const [personel, setPersonel] = useState([]);
-    const [activeAddMem, setActiveAddMem] = useState(null);
-    const [show, setShow] = useState(false);
     const [role, setRole] = useState('');
     const [payInterval, setPayInterval] = useState(null)
     const [payment, setPayment] = useState(0);
     const [startDate, setStartDate] = useState('');
-    const [ endDate, setEndDate ] = useState('');
+    const [endDate, setEndDate] = useState('');
+
+    const [activeAddMem, setActiveAddMem] = useState(null);
+    const [searchInput, setSearchInput] = useState('')
+    const [show, setShow] = useState(false);
 
     const totalCost = () => {
         if (team.length > 0){
@@ -26,7 +32,7 @@ const CreateProject = () => {
         }
         return 0
     }
-    const validateDates = () => {
+    const validateDates = () => { 
         if(startDate.length > 0 && endDate.length > 0){
             const currentDate = moment(new Date()).format("YYYY-MM-DD");
             if (endDate > startDate && startDate >= currentDate){
@@ -47,6 +53,13 @@ const CreateProject = () => {
         }
             console.log('it is not a number')
             return false
+    }
+    const validateTitleExistence = () => {
+        const isExisting = existingProjects.find((proj) => proj.name.toLowerCase() === title.toLowerCase())
+        if (isExisting){
+            return false
+        }
+        return true
     }   
     const handleAdd = () => {
         let newItem
@@ -63,14 +76,14 @@ const CreateProject = () => {
             setActiveAddMem(null)
         }
         else{
-            console.log('kulang')
+            alert('Please add correct information')
         }
     }
     const handleSubmit = () => {
         const newTeam = team.map((mem)=> {
             return {id: mem.entity.id, name: mem.entity.name, role: mem.role, pay:mem.pay, pay_interval: mem.payInterval}
         })
-        if (validateDates() && title.length > 0 && team.length > 0){
+        if (validateDates() && title.length > 0 && validateTitleExistence() && team.length > 0){
             axios.post(`http://localhost:3001/api/project/${title}`, 
             {
                 title: title, 
@@ -82,25 +95,26 @@ const CreateProject = () => {
             }).then(()=>{})
             setTimeout(() => { window.location.assign('/') }, 1000);
         } else {
-            if (startDate === ""){
-                alert('Please add start date')
-            }
-            if (endDate === "") {
-                alert('Please add end date')
-            }
-            if (title.length === 0) {
-                alert('Please add a title')
-            }
-            if (team.length === 0) {
-                alert('Please add team members')
-            }  
+            if (startDate === ""){alert('Please add start date')}
+            else if (endDate === "") {alert('Please add end date')}
+            else if (title.length === 0) {alert('Please add a title')}
+            else if (team.length === 0) {alert('Please add team members')}
+            else if (!validateTitleExistence()) {alert('Project already exists. Please use a different title')}
         }
     }
     useEffect(() => {
         axios.get('http://localhost:3001/api/members').then((res)=>{
             setPersonel(res.data);
+            setPersonelSet(res.data);
+        })
+        axios.get('http://localhost:3001/api/projects').then((res) => {
+            setExistingProjects(res.data)
         })
     }, [])
+    useEffect(() => {
+        const data = personelSet.filter((pers) => pers.name.toLowerCase().includes(searchInput.toLowerCase()));
+        setPersonel(data)
+    }, [searchInput])
     return(
         <div className="CreateProject">
             <div className="CreateProject__main">
@@ -191,7 +205,12 @@ const CreateProject = () => {
                 <Modal.Header closeButton />
                 <Modal.Body>
                     <h4>{personel.length} people</h4>
-                    <input type="text" placeholder="search for name"></input>
+                    <input 
+                        type="text" 
+                        value={searchInput}
+                        placeholder="search for name"
+                        onChange={(e) => setSearchInput(e.target.value)}
+                    />
                     <div className="CreateProject__Employeelist">
                     <ul>
                         {personel.map((tm)=> {

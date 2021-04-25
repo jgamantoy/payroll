@@ -1,13 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment'
 const Payments = () => {
-    const [ transactionList, setTransactionList ] = useState([]);
+    const [ transactionList, setTransactionList ] = useState([]); //List of transactions to be mapped
+    const [ transactionListSet, setTransactionListSet] = useState([]) //Static list of transactions to be filtered
     const [ showPayed, setShowPayed ] = useState(false);
     const [ sortSettings, setSortSettings ] = useState('nto')
-    const [ searchInput, setSearchInput ] = useState('')
     const [ searchSetting, setSearchSetting] = useState('emp')
-    console.log(searchInput)
+    const [ searchInput, setSearchInput ] = useState('')
+
     const transactionHeader = () => {
         return (
             <div className="transactionItem">
@@ -75,20 +77,17 @@ const Payments = () => {
         )
     }
     const handleUpdate = (id) => {
-        let passTCode = prompt(`Enter Transaction Code ${id}`)
+        let passTCode = prompt(`Enter Transaction Code of Payment`)
         if (passTCode !== null) {
             if (passTCode.length > 0 ) {
                 axios.put(`http://localhost:3001/api/update/transactions/${id}`,{transCode: passTCode}).then(()=> {
                 })
                 window.location.reload();
             } else {
-                alert('Please put a transaction code')
+                alert('Please put a transaction code');
             }
             
         }
-    }
-    const handleSearch = (text) => {
-        setSearchInput(text)
     }
     const emptyList = () => {
         const unpayedList = transactionList.filter((item) => {return item.status === 'unpayed'} )
@@ -110,21 +109,38 @@ const Payments = () => {
     }
     useEffect(() => {
         axios.get('http://localhost:3001/api/transactions').then((res) => {
-            let data = res.data.sort((a, b) =>  -(new Date(a.pay_date) - new Date(b.pay_date)))
-            setTransactionList(data)
+            let data = res.data.sort((a, b) =>  -(new Date(a.pay_date) - new Date(b.pay_date)));
+            setTransactionList(data);
+            setTransactionListSet(data);
         })
     }, [])
     useEffect(() => {
         const data = transactionList
         if (sortSettings === 'nto'){
-            data.sort((a, b) =>  -(new Date(a.pay_date) - new Date(b.pay_date)))
-            setSortSettings(data)
+            data.sort((a, b) =>  -(new Date(a.pay_date) - new Date(b.pay_date)));
+            setSortSettings(data);
         }
         if (sortSettings === 'otn') {
-            data.sort((a, b) =>  (new Date(a.pay_date) - new Date(b.pay_date)))
-            setSortSettings(data)
+            data.sort((a, b) =>  (new Date(a.pay_date) - new Date(b.pay_date)));
+            setSortSettings(data);
         }
     }, [sortSettings])
+    useEffect(() => {
+        if (searchSetting === 'emp') {
+            const data = transactionListSet.filter((item)=> item.name.toLowerCase().includes(searchInput));
+            setTransactionList(data);
+        }
+        if (searchSetting === 'proj') {
+            const data = transactionListSet.filter((item) => item.project_name.toLowerCase().includes(searchInput));
+            console.log(data);
+            setTransactionList(data)
+        }
+
+    }, [searchInput])
+    useEffect(() => {
+        setTransactionList(transactionListSet)
+        setSearchInput('')
+    }, [searchSetting])
     return(
         <div className="Payments">
             <div className="Payments__main">
@@ -143,11 +159,11 @@ const Payments = () => {
                             type="text"
                             value={searchInput}
                             placeholder="Search by ..."
-                            onChange={(e) => handleSearch(e.target.value)}
+                            onChange={(e) => setSearchInput(e.target.value)}
                         />
                         <select>
-                            <option>> Employee</option>
-                            <option>> Project</option>
+                            <option onClick={() => setSearchSetting('emp')}>{'>'} Employee</option>
+                            <option onClick={()=> setSearchSetting('proj')}>{'>'} Project</option>
                         </select>
                     </div>
                 </div>

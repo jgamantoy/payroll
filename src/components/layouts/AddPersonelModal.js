@@ -3,21 +3,22 @@ import axios from 'axios';
 import { Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers, reload}) => {
+const AddPersonelModal = ({ show, setIsOpen, reload}) => {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('')
     const [emailAddress, setEmailAddress] = useState('')
     const [payMethod, setPayMethod] = useState('');
-    const validateEmail = () => {
+
+    const validateEmail = () => { //EMAIL VALIDATION
         const re = /\S+@\S+\.\S+/;
         return re.test(emailAddress);
       };
-      const validatePhone = () => {
+      const validatePhone = () => { //PHONE VALIDATION
         const num = parseInt(phoneNumber);
-        if (isNaN(num)) {
+        if (isNaN(num)) { //IF INCLUDES LETTERS
           return false;
         }
-        if (phoneNumber.toString().replace(/ /g, '').replace('-', '').replace('+63', '0').length !== 11) {
+        if (phoneNumber.toString().replace(/ /g, '').replace('-', '').replace('+63', '0').length !== 11) {//REMOVES - an spaces, has to be 11 digits long
           return false;
         }
         return true;
@@ -110,9 +111,8 @@ const AddPersonelModal = ({ show, setIsOpen, setTeamMembers, teamMembers, reload
                                 docEl.style.border = '1px solid #000000';
                             }}
                         />
-                        <button
-                            onClick={()=>handleSubmit()}
-                        >Add Personel
+                        <button onClick={()=>handleSubmit()}>   
+                            Add Personel
                         </button>
                 </div>
             </Modal.Body>

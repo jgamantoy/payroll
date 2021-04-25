@@ -15,8 +15,7 @@ const TeamTab = () => {
     const reload = () => window.location.reload();
     
     const deleteMember = () => {
-        axios.delete(`http://localhost:3001/api/delete/${activePersonel.id}`).then(()=> {
-        })
+        axios.delete(`http://localhost:3001/api/delete/${activePersonel.id}`).then(()=> {})
         const newArray = teamMembers.filter((mem)=> mem.name !== activePersonel.name)
         setTeamMembers(newArray);
         setActivePersonel(null);

@@ -61,13 +61,10 @@ app.post('/api/project/:title', (req, res) => {
             const createTable = `CREATE TABLE ${newTitle} (member_id int, name VARCHAR(255), role VARCHAR(255), pay int, pay_interval VARCHAR(255),PRIMARY KEY (member_id))`
             con.query(createTable, (err, res) => {
                 team.forEach((mem) => {
-                    console.log(mem)
                     const paydays = calcPayDates(start_date, end_date, mem.pay_interval);
-                    console.log(paydays)
                     const sqlInsert = `INSERT INTO ${newTitle} (member_id,name,role,pay, pay_interval) VALUES (?,?,?,?,?)`
                     con.query(sqlInsert, [mem.id, mem.name, mem.role, mem.pay, mem.pay_interval])
                     paydays.forEach((day) => {
-                        console.log(day)
                         const payAmount = mem.pay / paydays.length
                         const sqlInsertPay = 'INSERT INTO transactions (member_id, name, project_name, pay_date, pay_amount, status, transaction_no) VALUES (?,?,?,?,?,?,?)'
                         con.query(sqlInsertPay, [mem.id, mem.name, title, day, payAmount.toFixed(2), 'unpayed', '-'], (err, res) => {
@@ -97,7 +94,6 @@ app.get('/api/members', (req, res) => {
 })
 app.get('/api/members/:project', (req, res) => {
     const project = req.params.project.split(' ').join('_')
-    console.log(project)
     const sqlRetrieve = `SELECT * FROM ${project}`;
     con.query(sqlRetrieve, (error, result) => {
         res.send(result)
@@ -135,7 +131,6 @@ app.put('/api/update/:id', (req, res) => {
 })
 app.put('/api/update/transactions/:id', (req, res) => {
     const transID = req.params.id
-    console.log(transID)
     const transCode = req.body.transCode;
     const sqlUpdate = "UPDATE transactions SET status = ?, transaction_no = ? WHERE trans_id = ?";
     con.query(sqlUpdate, ['payed',transCode, transID] , (err, result) => {

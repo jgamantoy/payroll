@@ -16,12 +16,12 @@
   }
   &__main {
     @include flexCenter;
+    align-items: flex-start;
     width: 100%;
     height: 100%;
     padding: 50px;
     &__summary {
       height: 100%;
-      margin-top: 25px;
       input {
         width: 552px;
         height: 64px;

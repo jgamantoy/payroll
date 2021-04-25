@@ -37,10 +37,12 @@
         padding: 10px;
         margin-left: 15px;
       }
-      &__check {
-        margin-left: 15px;
-        label {
-          margin-left: 10px;
+      &__transactions {
+        padding-left: 15px;
+        h4 {
+          color: #000000;
+          font-weight: bold;
+          margin: 10px 0;
         }
       }
     }

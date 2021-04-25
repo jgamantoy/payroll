@@ -51,12 +51,13 @@ con.connect(function(err) {
       con.query("CREATE DATABASE payroll",  (err, result) => {
         if (err) throw err;
         console.log('DATABASE CREATED')
-        setUpTables()
+        setUpTables();
+        con.end();
       });
     }
     else {
       console.log('DB ALREADY EXISTS')
-      setUpTables()
+      setUpTables();
     }
   })
 });

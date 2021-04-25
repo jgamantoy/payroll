@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
-
+import TransCalendar from '../reuseable/TransCalendar';
 const Project = () => {
     const [projectData, setProjectData] = useState(null);
     const [team, setTeam] = useState([]);
@@ -12,7 +12,6 @@ const Project = () => {
         axios.get(`http://localhost:3001/api/project/${projectId}`).then((res)=> {
             setProjectData(res.data[0])
             axios.get(`http://localhost:3001/api/members/${res.data[0].name}`).then((res)=>{
-                console.log(res.data)
                 setTeam(res.data)
             })
         })
@@ -24,8 +23,6 @@ const Project = () => {
     const memberDetails = (member) => {
         const payList = transaction.filter((tran) => tran.member_id === member.member_id && tran.project_name === projectData.name)
         const payPerInterval = member.pay/payList.length
-        console.log(payList)
-        console.log(payPerInterval)
         return (
             <div className="memberDetails">
                 <h2>{member.name}</h2>
@@ -62,6 +59,10 @@ const Project = () => {
                             <p>Start Date: {projectData !== null ? moment(projectData.start_date).add(1, 'day').format("MMMM DD, YYYY") : ''}</p>
                             <p>End Date: {projectData !== null ? moment(projectData.end_date).add(1, 'day').format("MMMM DD, YYYY") : ''}</p>
                         </div>
+                    </div>
+                    <div className="Project__main__summary__transactions">
+                    <h4>Upcoming Payments</h4>
+                     {projectData !== null ? <TransCalendar projName={projectData.name}/>: '' }   
                     </div>
                 </div>
             </div>

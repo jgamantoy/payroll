@@ -40,13 +40,14 @@ const CreateProject = () => {
                 return true
             }
             console.log('Error: Incorrect Dates')
+            alert('Incorrect dates')
             return false
         }
         console.log('Error: Missing dates')
+        alert('Please add start or end date')
         return false
     }
     const validatePay = () => {
-        console.log(parseInt(payment.split(",").join('')))
         if (Number.isInteger(parseInt(payment.split(",").join('')))){
             console.log('it is a number')
             return true 
@@ -215,8 +216,14 @@ const CreateProject = () => {
                     <ul>
                         {personel.map((tm)=> {
                             return <li onClick={()=> {
-                                setActiveAddMem(tm)
-                                setShow(false)
+                                let isInTeam = team.find((mem) => mem.entity.name === tm.name)
+                                if (isInTeam){
+                                    alert('Already in team')
+                                } else {
+                                    setActiveAddMem(tm)
+                                    setShow(false)
+                                }
+
                             }}>{tm.name}</li>
                         })}
                     </ul>

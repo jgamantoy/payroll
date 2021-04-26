@@ -29,7 +29,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "scss": "node-sass --watch scss -o css",
-    "serve": "nodemon server/index.js",
+    "setup-server": "node server/setup.js",
+    "server": "nodemon server/index.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

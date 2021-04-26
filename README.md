@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+1. Run "npm install"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+TO SET UP THE SERVER
 
-## Available Scripts
+2. To Create the databas run "npm run setup-server"
 
-In the project directory, you can run:
+3. To start the server run "npm run server"
 
-### `npm start`
+TO START CLIENT
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+4. Run npm start
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+INSTRUCTIONS
 
-### `npm test`
+-ADDING Employees
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Go to 'Team' tab
+2. Click on the plus Icon on the bottom
+3. Fill up necessary informaton
 
-### `npm run build`
+-CREATING Projects
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Go to 'Projects' tab
+2. Click on the plus Icon on the bottom
+3. Fill up necessary information
+4. To add team members to the project click on the plus icon under 'Add Personel'
+5. Select members to add to team
+6. Add role, total pay, and pay interval (how often they will recieve a portion of the total pay)
+7. Click save
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-- Check the 'Transactions' tab to see all payments need
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-UPDATING payments
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Go to 'Transactions' tab
+2. Pick a row of a payment you want to update
+3. click update, a prompt will pop up asking for the transaction code of the payment
+4. Once update, the payment will be updated and hidden.
+5. To show payed transactions, click on 'Show Payed'

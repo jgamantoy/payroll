@@ -9,7 +9,7 @@ const TransCalendar = ({projName = 'all'}) => {
 
   useEffect(() => {
     axios.get('http://localhost:3001/api/transactions').then((res) => {
-      const transactionList = res.data.filter((date) => moment(date.pay_date).isAfter(currentDate) && moment(date.pay_date).isBefore(nextDate) && date.status !== 'payed') //Gets all payments due within a week and is not payed
+      const transactionList = res.data.filter((date) => moment(date.pay_date).isAfter(currentDate) && moment(date.pay_date).isSameOrBefore(nextDate) && date.status !== 'payed') //Gets all payments due within a week and is not payed
       if (projName === 'all'){
         setTransactions(transactionList)
       }

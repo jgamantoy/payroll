@@ -4,6 +4,8 @@ TO SET UP THE SERVER
 
 2. To Create the databas run "npm run setup-server"
 
+- Make sure your MySQL server is up
+
 3. To start the server run "npm run server"
 
 TO START CLIENT
